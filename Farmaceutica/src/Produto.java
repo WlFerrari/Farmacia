@@ -7,8 +7,8 @@ public class Produto {
     private double valorVenda;
     private int quantidadeEstoque;
 
-    public Produto(UUID id, String nome, double valorCompra, double valorVenda, int quantidadeEstoque) {
-        this.id = id;
+    public Produto(String nome, double valorCompra, double valorVenda, int quantidadeEstoque) {
+        this.id = UUID.randomUUID();
         this.nome = nome;
         this.valorCompra = valorCompra;
         this.valorVenda = valorVenda;
