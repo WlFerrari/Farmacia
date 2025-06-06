@@ -16,6 +16,7 @@ public class Caixa {
     }
 
     public double calcularEstimativaLucro() {
+
         return 0.0;
     }
 }
