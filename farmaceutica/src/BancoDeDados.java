@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.UUID;
 
 //Classe destinada a armazenar as coleções de objetos que serão usadas durante a execução do projeto
 public class BancoDeDados {
@@ -16,9 +17,9 @@ public class BancoDeDados {
     // Construtor privado para evitar instanciamento externo
     private BancoDeDados(){
         this.funcionarios = new ArrayList<Funcionario>();
-        this.produtos = new ArrayList<Funcionario>();
-        this.transportadoras = new ArrayList<Funcionario>();
-        this.negocios = new ArrayList<Funcionario>();
+        this.produtos = new ArrayList<Produto>();
+        this.transportadoras = new ArrayList<Transportadora>();
+        this.negocios = new ArrayList<Negocio>();
     }
 
     // Método público para obter a instância única
@@ -74,7 +75,7 @@ public class BancoDeDados {
     }
 
 
-    //Metodos para alteração de item nas listas
+    //Metodos para alteração de item nas listas------------------------------------------------------------------------
     public void atualizarFuncionario(UUID id, Funcionario novoFuncionario) {
         if (id != null && novoFuncionario != null) {
             for (int i = 0; i < funcionarios.size(); i++) {
