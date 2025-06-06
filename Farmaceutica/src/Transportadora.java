@@ -9,6 +9,22 @@ public class Transportadora {
         this.regioes = regioes;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public List<String> getRegioes() {
+        return regioes;
+    }
+
+    public void setRegioes(List<String> regioes) {
+        this.regioes = regioes;
+    }
+
     @Override
     public String toString() {
         return nome + " - Regiões: " + String.join(", ", regioes);
