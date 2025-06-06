@@ -16,7 +16,11 @@ public class Caixa {
     }
 
     public double calcularEstimativaLucro() {
-
+        BancoDeDados db = BancoDeDados.getInstanciaBanco();
+        double soma = 0;
+        for (Produto produto : db.getProdutos()) {
+            //TODO ITERAR EM NEGOCIOS
+        }
         return 0.0;
     }
 }
