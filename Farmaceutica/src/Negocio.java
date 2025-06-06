@@ -1,7 +1,7 @@
 import java.util.UUID;
 
 public class Negocio {
-    private UUID id;
+    private final UUID id;
     private Tipo tipo;
     private Status status;
     private List<Funcionario> participantes;
