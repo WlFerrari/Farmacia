@@ -263,4 +263,8 @@ public class  Funcionario{
                 + "\nPlanoSaude: " + planoSaude
                 + "\nPlanoOdontologico: " + planoOdontologico;
     }
+
+    public String toStringResumido(){
+        return ("ID: " + id + "\nNome: " + nome +"\nSetor: " + setor);
+    }
 }
