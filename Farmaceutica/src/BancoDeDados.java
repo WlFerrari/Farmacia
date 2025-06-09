@@ -247,12 +247,16 @@ public class BancoDeDados {
     }
 
     public void listarFuncionarioPorSetor(Setor setor) {
-        System.out.println();
-        for(Funcionario f : funcionarios) {
-            if(f.getSetor().equals(setor)){
-                System.out.println(f.toString());
-                System.out.println();
+        try{
+            System.out.println();
+            for(Funcionario f : funcionarios) {
+                if(f.getSetor().equals(setor)){
+                    System.out.println(f.toString());
+                    System.out.println();
+                }
             }
+        } catch(Exception e){
+            e.printStackTrace();
         }
     }
 }

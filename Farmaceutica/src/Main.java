@@ -11,6 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         inicializarCaixa();
+        inicializarDados();
 
         int opcao;
         do {
@@ -275,13 +276,22 @@ public class Main {
 
         Caixa caixa = new Caixa(20000.00);
 
-        Produto produto = new Produto(
+        Produto nimesulida = new Produto(
                 "nimesulida",
                 20.00,
                 30.00,
                 100
         );
-        db.adicionarProduto(produto);
+        db.adicionarProduto(nimesulida);
+
+        Produto tylenol = new Produto(
+                "tylenol",
+                15.00,
+                30.00,
+                100
+        );
+        db.adicionarProduto(tylenol);
+
         List<String> regioes = new ArrayList<>();
         regioes.add("reg1");
         regioes.add("reg2");
