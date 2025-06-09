@@ -1,6 +1,6 @@
 import java.util.UUID;
 
-public class Funcionario {
+public class Funcionario extends Caixa{
     private UUID Id;
     private String nome;
     private int idade;
@@ -13,14 +13,14 @@ public class Funcionario {
     private double planoSaude = 3000;
     private double planoOdontologico = 3000;
 
-    public Funcionario(String nome, int idade, Genero genero, Setor setor, double salariobase) {
+    public Funcionario(double valor, String nome, int idade, Genero genero, Setor setor, double salariobase) {
+        super(valor);
         Id = UUID.randomUUID();
         this.nome = nome;
         this.idade = idade;
         this.genero = genero;
         this.setor = setor;
         this.salariobase = salariobase;
-
     }
 
     public UUID getId() {
@@ -146,7 +146,8 @@ public class Funcionario {
     }
 
     public double calcularPl(){
-        return 0.0;
+        BancoDeDados bancoDeDados = BancoDeDados.getInstanciaBanco();
+        return (calcularEstimativaLucro() * 0.10) / (double) bancoDeDados.getFuncionarios().size();
     }
 
     public String toString(){

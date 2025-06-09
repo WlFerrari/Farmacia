@@ -4,6 +4,5 @@ public enum Setor {
     GESTAO_DE_PESSOAS,
     FINANCEIRO,
     VENDAS,
-    ALMOXARIFADO,
-    TRANSPORTADORAS;
+    ALMOXARIFADO;
 }
