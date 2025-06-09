@@ -1,5 +1,6 @@
 import com.sun.jdi.connect.Transport;
 
+import javax.naming.PartialResultException;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +88,7 @@ public class Main {
                     db.listarProdutos();
                     System.out.print("Digite o ID do produto a remover: ");
                     try {
-                        int id = scanner.nextInt();
+                        UUID id = UUID.fromString(scanner.nextLine());
                         if (db.removerProdutoPorId(id)) {
                             System.out.println("Produto removido com sucesso!");
                         } else {
@@ -101,7 +102,7 @@ public class Main {
                     db.listarProdutos();
                     System.out.print("Digite o ID do produto para atualizar estoque: ");
                     try {
-                        int id = scanner.nextInt();
+                        UUID id = UUID.fromString(scanner.nextLine());
                         System.out.print("Novo estoque: ");
                         int novoEstoque = scanner.nextInt();
                         scanner.nextLine();
@@ -118,7 +119,7 @@ public class Main {
                     db.listarProdutos();
                     System.out.print("Digite o ID do produto para atualizar preço: ");
                     try {
-                        int id = scanner.nextInt();
+                        UUID id = UUID.fromString(scanner.nextLine());
                         System.out.print("Novo preço de venda: ");
                         double novoPreco = scanner.nextDouble();
                         scanner.nextLine();
@@ -229,5 +230,14 @@ public class Main {
                 "Transportadora X",
                 regioes);
 
+        List<Funcionario> participantes = new ArrayList<>();
+        participantes.add(joao);
+
+        Negocio negocio = new Negocio(
+                Tipo.COMPRA,
+                Status.CONCLUIDO,
+                participantes,
+                transportadora
+        );
     }
 }
