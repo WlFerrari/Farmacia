@@ -1,7 +1,5 @@
-import java.util.UUID;
-
 public class Produto {
-    private static int counter = 0;
+    private static int contadorId = 1; // Gerador de ID incremental
     private int id;
     private String nome;
     private double valorCompra;
@@ -9,19 +7,19 @@ public class Produto {
     private int quantidadeEstoque;
 
     public Produto(String nome, double valorCompra, double valorVenda, int quantidadeEstoque) {
-        id = ++counter;
+        this.id = contadorId++;
         this.nome = nome;
         this.valorCompra = valorCompra;
         this.valorVenda = valorVenda;
         this.quantidadeEstoque = quantidadeEstoque;
+
         if (valorCompra < 0 || valorVenda < 0 || quantidadeEstoque < 0) {
             throw new IllegalArgumentException("Valores de produto não podem ser negativos.");
         }
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
 
     public String getNome() {
@@ -59,9 +57,13 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto: " + nome +
-                "\n ID: " + id +
                 "\nCompra: R$" + valorCompra +
-                "\n Venda: R$" + valorVenda +
-                "\n Quantidade em estoque: " + quantidadeEstoque;
+                ", Venda: R$" + valorVenda +
+                ", Estoque: " + quantidadeEstoque +
+                ", ID: " + id;
     }
 }
+
+
+
+

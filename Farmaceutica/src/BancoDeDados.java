@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.UUID;
 
 //Classe destinada a armazenar as coleções de objetos que serão usadas durante a execução do projeto
 public class BancoDeDados {
@@ -85,21 +84,37 @@ public class BancoDeDados {
 
 
     //Metodos para alteração de item nas listas------------------------------------------------------------------------
-    public void atualizarFuncionario(UUID id, Funcionario novoFuncionario) {
-        if (id != null && novoFuncionario != null) {
-            for (int i = 0; i < funcionarios.size(); i++) {
-                if (id.equals(funcionarios.get(i).getId())) {
-                    funcionarios.set(i, novoFuncionario);
-                    break;
-                }
+    public void atualizarFuncionario(int id, Funcionario novoFuncionario) {
+        for (int i = 0; i < funcionarios.size(); i++) {
+            if (id == funcionarios.get(i).getId()) {
+                funcionarios.set(i, novoFuncionario);
+                break;
             }
         }
     }
 
-    public void atualizarProduto(UUID id, Produto novoProduto) {
-        if (id != null && novoProduto != null) {
+    public boolean atualizarEstoqueProduto(int id, int novoEstoque) {
+        Produto produto = buscarProdutoPorId(id);
+        if (produto != null) {
+            produto.setQuantidadeEstoque(novoEstoque);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean atualizarPrecoProduto(int id, double novoPreco) {
+        Produto produto = buscarProdutoPorId(id);
+        if (produto != null) {
+            produto.setValorVenda(novoPreco);
+            return true;
+        }
+        return false;
+    }
+
+    public void atualizarProduto(int id, Produto novoProduto) {
+        if (novoProduto != null) {
             for (int i = 0; i < produtos.size(); i++) {
-                if (id.equals(produtos.get(i).getId())) {
+                if (id == produtos.get(i).getId()) {
                     produtos.set(i, novoProduto);
                     break;
                 }
@@ -107,10 +122,10 @@ public class BancoDeDados {
         }
     }
 
-    public void atualizarNegocio(UUID id, Negocio novoNegocio) {
-        if (id != null && novoNegocio != null) {
+    public void atualizarNegocio(int id, Negocio novoNegocio) {
+        if (novoNegocio != null) {
             for (int i = 0; i < negocios.size(); i++) {
-                if (id.equals(negocios.get(i).getId())) {
+                if (id == negocios.get(i).getId()) {
                     negocios.set(i, novoNegocio);
                     break;
                 }
@@ -133,36 +148,28 @@ public class BancoDeDados {
 
     //Metodos para deletar um objeto dos Arrays ----------------------------------------------------------------------
 
-    public void removerFuncionario(UUID id) {
-        if (id != null) {
-            funcionarios.removeIf(funcionario -> id.equals(funcionario.getId()));
-        }
+    public void removerFuncionario(int id) {
+        funcionarios.removeIf(funcionario -> funcionario.getId() == id);
     }
 
-    public void removerProduto(UUID id) {
-        if (id != null) {
-            produtos.removeIf(produto -> id.equals(produto.getId()));
-        }
+    public void removerProduto(int id) {
+        produtos.removeIf(produto -> produto.getId() == id);
     }
 
-    public void removerNegocioPorId(UUID id) {
-        if (id != null) {
-            negocios.removeIf(negocio -> id.equals(negocio.getId()));
-        }
+    public void removerNegocioPorId(int id) {
+        negocios.removeIf(negocio -> negocio.getId() == id);
     }
 
     public void removerTransportadoraPorNome(String nome) {
-        if (nome != null) {
-            transportadoras.removeIf(transportadora -> nome.equals(transportadora.getNome()));
-        }
+        transportadoras.removeIf(transportadora -> transportadora.getNome().equals(nome));
     }
 
     //Metodos para retornar o objeto solicitado ----------------------------------------------------------------------
 
-    public Funcionario getFuncionarioPorId(UUID id) {
-        if (id != null) {
+    public Funcionario getFuncionarioPorId(int id) {
+        if (id != funcionarios.get(0).getId()) {
             for (Funcionario funcionario : funcionarios) {
-                if (id.equals(funcionario.getId())) {
+                if (id == funcionario.getId()) {
                     return funcionario;
                 }
             }
@@ -170,21 +177,31 @@ public class BancoDeDados {
         return null;
     }
 
-    public Produto buscarProdutoPorId(UUID id) {
-        if (id != null) {
-            for (Produto produto : produtos) {
-                if (id.equals(produto.getId())) {
-                    return produto;
-                }
+    public Produto buscarProdutoPorId(int id) {
+        for (Produto produto : produtos) {
+            if (produto.getId() == id) {
+                return produto;
             }
         }
         return null;
     }
 
-    public Negocio buscarNegocioPorId(UUID id) {
-        if (id != null) {
+    public void listarProdutos() {
+        System.out.println("\n--- Lista de Produtos ---");
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+        } else {
+            for (Produto p : produtos) {
+                System.out.printf("ID: %s | Nome: %s | Compra: R$%.2f | Venda: R$%.2f | Estoque: %d\n",
+                        p.getId(), p.getNome(), p.getValorCompra(), p.getValorVenda(), p.getQuantidadeEstoque());
+            }
+        }
+    }
+
+    public Negocio buscarNegocioPorId(int id) {
+        if (id != negocios.get(0).getId()) {
             for (Negocio negocio : negocios) {
-                if (id.equals(negocio.getId())) {
+                if (id == negocio.getId()) {
                     return negocio;
                 }
             }
