@@ -1,4 +1,8 @@
+import com.sun.jdi.connect.Transport;
+
 import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -154,5 +158,76 @@ public class Main {
         System.out.printf("Valor atual em caixa: R$ %.2f%n", caixa.getValor());
         System.out.printf("Estimativa de lucro mensal: R$ %.2f%n", lucroMensal);
         System.out.printf("Estimativa de lucro anual: R$ %.2f%n", lucroAnual);
+    }
+
+    public static void inicializarDados() {
+        Funcionario joao = new Funcionario(
+                "joao",
+                20,
+                Genero.MASCULINO,
+                Setor.ATENDIMENTO_AO_CLIENTE,
+                1000.00
+        );
+
+        Funcionario maria = new Funcionario(
+                "maria",
+                20,
+                Genero.FEMININO,
+                Setor.FINANCEIRO,
+                1200.00
+        );
+
+        Funcionario matheus = new Funcionario(
+                "matheus",
+                20,
+                Genero.NAO_INFORMADO,
+                Setor.GERENCIA,
+                1500.00
+        );
+
+        Funcionario renato = new Funcionario(
+                "renato",
+                20,
+                Genero.MASCULINO,
+                Setor.ALMOXARIFADO,
+                1600.00
+        );
+        Funcionario carlos = new Funcionario(
+                "carlos",
+                20,
+                Genero.MASCULINO,
+                Setor.GESTAO_DE_PESSOAS,
+                1700.00
+        );
+        Funcionario augusto = new Funcionario(
+                "augusto",
+                20,
+                Genero.MASCULINO,
+                Setor.TRANSPORTADORAS,
+                1700.00
+        );
+        Funcionario charles = new Funcionario(
+                "charles",
+                20,
+                Genero.FEMININO,
+                Setor.VENDAS,
+                1500.00
+        );
+
+        Caixa caixa = new Caixa(20000.00);
+
+        Produto produto = new Produto(
+                "nimesulida",
+                20.00,
+                30.00,
+                100
+        );
+        List<String> regioes = new ArrayList<>();
+        regioes.add("reg1");
+        regioes.add("reg2");
+        Transportadora transportadora = new Transportadora(
+                "Transportadora X",
+                regioes);
+
     }
 }
