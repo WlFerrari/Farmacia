@@ -26,11 +26,9 @@ public class Negocio {
         }
     }
 
-    public static void negocioPromt(Scanner in){
-        this.tipo = tipo;
-        this.status = status;
-        this.participantes = participantes;
-        this.transportadora = transportadora;
+    public static Negocio negocioPromt(){
+        Scanner in = new Scanner(System.in);
+        //Pegar instancia do BancoDeDados
         BancoDeDados bd = BancoDeDados.getInstanciaBanco();
 
         System.out.print("Informe o tipo do negocio (compra/venda): ");
@@ -78,7 +76,17 @@ public class Negocio {
         }
 
         System.out.println("Transportadoras cadastradas: ");
-        bd.lis
+        int j = 0;
+        for(Transportadora t : bd.getTransportadoras()){
+            System.out.print(j+" - ");
+            System.out.println(t.toString());
+            System.out.println();
+        }
+        System.out.print("\nInforme o numero para cadastro da transportadora responsável pelo negócio: ");
+        j = Integer.parseInt(in.nextLine());
+        Transportadora transportadoraResponsavel = bd.getTransportadoras().get(j);
+
+        return new Negocio(tipo, status, participantes, transportadoraResponsavel);
 
     }
 
