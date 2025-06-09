@@ -51,7 +51,7 @@ public class Main {
             System.out.println("2. Remover Funcionários por ID");
             System.out.println("3. Exibir Funcionários");
             System.out.println("4. Exibir Funcionários por Setor");
-            System.out.println("5. Sair");
+            System.out.println("5. Voltar para o Menu Principal");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine(); // limpa buffer
