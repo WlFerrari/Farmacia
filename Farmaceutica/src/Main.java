@@ -1,5 +1,6 @@
 import com.sun.jdi.connect.Transport;
 
+import javax.swing.plaf.basic.BasicGraphicsUtils;
 import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -212,6 +213,8 @@ public class Main {
     }
 
     public static void inicializarDados() {
+        BancoDeDados db = BancoDeDados.getInstanciaBanco();
+
         Funcionario joao = new Funcionario(
                 "joao",
                 20,
@@ -219,6 +222,7 @@ public class Main {
                 Setor.ATENDIMENTO_AO_CLIENTE,
                 1000.00
         );
+        db.adicionarFuncionario(joao);
 
         Funcionario maria = new Funcionario(
                 "maria",
@@ -227,6 +231,7 @@ public class Main {
                 Setor.FINANCEIRO,
                 1200.00
         );
+        db.adicionarFuncionario(maria);
 
         Funcionario matheus = new Funcionario(
                 "matheus",
@@ -235,6 +240,8 @@ public class Main {
                 Setor.GERENCIA,
                 1500.00
         );
+        db.adicionarFuncionario(matheus);
+
 
         Funcionario renato = new Funcionario(
                 "renato",
@@ -243,6 +250,8 @@ public class Main {
                 Setor.ALMOXARIFADO,
                 1600.00
         );
+        db.adicionarFuncionario(renato);
+
         Funcionario carlos = new Funcionario(
                 "carlos",
                 20,
@@ -250,6 +259,8 @@ public class Main {
                 Setor.GESTAO_DE_PESSOAS,
                 1700.00
         );
+        db.adicionarFuncionario(carlos);
+
         Funcionario augusto = new Funcionario(
                 "augusto",
                 20,
@@ -257,6 +268,8 @@ public class Main {
                 Setor.TRANSPORTADORAS,
                 1700.00
         );
+        db.adicionarFuncionario(augusto);
+
         Funcionario charles = new Funcionario(
                 "charles",
                 20,
@@ -264,6 +277,7 @@ public class Main {
                 Setor.VENDAS,
                 1500.00
         );
+        db.adicionarFuncionario(charles);
 
         Caixa caixa = new Caixa(20000.00);
 
@@ -273,12 +287,14 @@ public class Main {
                 30.00,
                 100
         );
+        db.adicionarProduto(produto);
         List<String> regioes = new ArrayList<>();
         regioes.add("reg1");
         regioes.add("reg2");
         Transportadora transportadora = new Transportadora(
                 "Transportadora X",
                 regioes);
+        db.adicionarTransportadora(transportadora);
 
         List<Funcionario> participantes = new ArrayList<>();
         participantes.add(joao);
@@ -288,5 +304,6 @@ public class Main {
                 participantes,
                 transportadora
         );
+        db.adicionarNegocio(negocio);
     }
 }
