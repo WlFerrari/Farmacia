@@ -167,6 +167,7 @@ public class Main {
     private static void menuNegocios() {
         System.out.println("\n--- Negócios em Andamento ---");
         // Implemente aqui: Criar venda/compra, listar negócios por status
+
     }
 
     private static void menuRelatorios() {
