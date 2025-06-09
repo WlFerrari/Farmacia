@@ -83,7 +83,7 @@ public class Main {
                     db.listarProdutos();
                     System.out.print("Digite o ID do produto a remover: ");
                     try {
-                        UUID id = UUID.fromString(scanner.nextLine());
+                        int id = scanner.nextInt();
                         if (db.removerProdutoPorId(id)) {
                             System.out.println("Produto removido com sucesso!");
                         } else {
@@ -97,7 +97,7 @@ public class Main {
                     db.listarProdutos();
                     System.out.print("Digite o ID do produto para atualizar estoque: ");
                     try {
-                        UUID id = UUID.fromString(scanner.nextLine());
+                        int id = scanner.nextInt();
                         System.out.print("Novo estoque: ");
                         int novoEstoque = scanner.nextInt();
                         scanner.nextLine();
@@ -114,7 +114,7 @@ public class Main {
                     db.listarProdutos();
                     System.out.print("Digite o ID do produto para atualizar preço: ");
                     try {
-                        UUID id = UUID.fromString(scanner.nextLine());
+                        int id = scanner.nextInt();
                         System.out.print("Novo preço de venda: ");
                         double novoPreco = scanner.nextDouble();
                         scanner.nextLine();
