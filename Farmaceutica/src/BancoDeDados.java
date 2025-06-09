@@ -6,6 +6,7 @@ public class BancoDeDados {
     //Primeiro passo do project pattern singleton
     //O singleton serve para garantir que haja uma instância única da classe
     private static BancoDeDados instancia;
+    private Caixa caixa;
 
     //ArraysList para armazenar os objetos que serão persistidos durante a execução do sistema
     private ArrayList<Funcionario> funcionarios;
@@ -20,6 +21,7 @@ public class BancoDeDados {
         this.produtos = new ArrayList<Produto>();
         this.transportadoras = new ArrayList<Transportadora>();
         this.negocios = new ArrayList<Negocio>();
+        caixa = new Caixa(200000);
     }
 
     // Método público para obter a instância única
@@ -48,6 +50,13 @@ public class BancoDeDados {
         return negocios;
     }
 
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
+    }
 
     //Metodos para inclusão de items nas listas ----------------------------------------------------------------------
     public void adicionarFuncionario(Funcionario funcionario) {
@@ -193,6 +202,4 @@ public class BancoDeDados {
         }
         return null;
     }
-
-
 }

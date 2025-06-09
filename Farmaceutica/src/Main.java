@@ -35,7 +35,7 @@ public class Main {
 
     private static void inicializarCaixa() {
         if (db.getCaixa() == null) {
-            db.setCaixa(new Caixa(200_000)); // valor inicial do enunciado
+            db.setCaixa(new Caixa(200000)); // valor inicial do enunciado
         }
     }
 
