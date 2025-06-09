@@ -3,14 +3,15 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class Negocio {
-    private final UUID id;
+    private static int counter = 0;
+    private int id;
     private Tipo tipo;
     private Status status;
     private List<Funcionario> participantes;
     private Transportadora transportadora;
 
     public Negocio(Tipo tipo, Status status, List<Funcionario> participantes, Transportadora transportadora) {
-        this.id = UUID.randomUUID(); // Gerar um id aleatórios único
+        id = ++counter;
         this.tipo = tipo;
         this.status = status;
         this.participantes = participantes;
@@ -23,7 +24,7 @@ public class Negocio {
         }
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 

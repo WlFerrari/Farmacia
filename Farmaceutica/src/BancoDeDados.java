@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.UUID;
 
 //Classe destinada a armazenar as coleções de objetos que serão usadas durante a execução do projeto
 public class BancoDeDados {
@@ -85,10 +84,10 @@ public class BancoDeDados {
 
 
     //Metodos para alteração de item nas listas------------------------------------------------------------------------
-    public void atualizarFuncionario(UUID id, Funcionario novoFuncionario) {
-        if (id != null && novoFuncionario != null) {
+    public void atualizarFuncionario(int id, Funcionario novoFuncionario) {
+        if (novoFuncionario != null) {
             for (int i = 0; i < funcionarios.size(); i++) {
-                if (id.equals(funcionarios.get(i).getId())) {
+                if (id == funcionarios.get(i).getId()) {
                     funcionarios.set(i, novoFuncionario);
                     break;
                 }
@@ -96,10 +95,10 @@ public class BancoDeDados {
         }
     }
 
-    public void atualizarProduto(UUID id, Produto novoProduto) {
-        if (id != null && novoProduto != null) {
+    public void atualizarProduto(int id, Produto novoProduto) {
+        if (novoProduto != null) {
             for (int i = 0; i < produtos.size(); i++) {
-                if (id.equals(produtos.get(i).getId())) {
+                if (id == produtos.get(i).getId()) {
                     produtos.set(i, novoProduto);
                     break;
                 }
@@ -107,10 +106,10 @@ public class BancoDeDados {
         }
     }
 
-    public void atualizarNegocio(UUID id, Negocio novoNegocio) {
-        if (id != null && novoNegocio != null) {
+    public void atualizarNegocio(int id, Negocio novoNegocio) {
+        if (novoNegocio != null) {
             for (int i = 0; i < negocios.size(); i++) {
-                if (id.equals(negocios.get(i).getId())) {
+                if (id == negocios.get(i).getId()) {
                     negocios.set(i, novoNegocio);
                     break;
                 }
@@ -133,22 +132,16 @@ public class BancoDeDados {
 
     //Metodos para deletar um objeto dos Arrays ----------------------------------------------------------------------
 
-    public void removerFuncionario(UUID id) {
-        if (id != null) {
-            funcionarios.removeIf(funcionario -> id.equals(funcionario.getId()));
-        }
+    public void removerFuncionario(int id) {
+            funcionarios.removeIf(funcionario -> id == funcionario.getId());
     }
 
-    public void removerProduto(UUID id) {
-        if (id != null) {
-            produtos.removeIf(produto -> id.equals(produto.getId()));
-        }
+    public void removerProduto(int id) {
+            produtos.removeIf(produto -> id == produto.getId());
     }
 
-    public void removerNegocioPorId(UUID id) {
-        if (id != null) {
-            negocios.removeIf(negocio -> id.equals(negocio.getId()));
-        }
+    public void removerNegocioPorId(int id) {
+            negocios.removeIf(negocio -> id == negocio.getId());
     }
 
     public void removerTransportadoraPorNome(String nome) {
@@ -159,36 +152,34 @@ public class BancoDeDados {
 
     //Metodos para retornar o objeto solicitado ----------------------------------------------------------------------
 
-    public Funcionario getFuncionarioPorId(UUID id) {
-        if (id != null) {
+    public Funcionario getFuncionarioPorId(int id) {
+
             for (Funcionario funcionario : funcionarios) {
-                if (id.equals(funcionario.getId())) {
+                if (id == funcionario.getId()) {
                     return funcionario;
                 }
             }
-        }
+
         return null;
     }
 
-    public Produto buscarProdutoPorId(UUID id) {
-        if (id != null) {
-            for (Produto produto : produtos) {
-                if (id.equals(produto.getId())) {
+    public Produto buscarProdutoPorId(int id) {
+
+        for (Produto produto : produtos) {
+                if (id == produto.getId()) {
                     return produto;
                 }
             }
-        }
         return null;
     }
 
-    public Negocio buscarNegocioPorId(UUID id) {
-        if (id != null) {
+    public Negocio buscarNegocioPorId(int id) {
+
             for (Negocio negocio : negocios) {
-                if (id.equals(negocio.getId())) {
+                if (id == negocio.getId()) {
                     return negocio;
                 }
             }
-        }
         return null;
     }
 
@@ -201,5 +192,44 @@ public class BancoDeDados {
             }
         }
         return null;
+    }
+
+
+    //Metodos para listar detalhadamente os dados de cada objeto das listas -------------------------------------------
+
+    public void listarFuncionarios() {
+        System.out.println("\n----------------------------------------------------");
+        System.out.println("Listagem de funcionarios: \n");
+        for (Funcionario f : funcionarios) {
+            System.out.println(f.toString());
+            System.out.println();
+        }
+    }
+
+    public void listarProdutos() {
+        System.out.println("\n----------------------------------------------------");
+        System.out.println("Listagem de produtos: \n");
+        for (Produto p : produtos) {
+            System.out.println(p.toString());
+            System.out.println();
+        }
+    }
+
+    public void listarTransportadoras() {
+        System.out.println("\n----------------------------------------------------");
+        System.out.println("Listagem de transportadoras: \n");
+        for (Transportadora t : transportadoras) {
+            System.out.println(t.toString());
+            System.out.println();
+        }
+    }
+
+    public void listarNegocios() {
+        System.out.println("\n----------------------------------------------------");
+        System.out.println("Listagem de negocios: \n");
+        for (Negocio n : negocios) {
+            System.out.println(n.toString());
+            System.out.println();
+        }
     }
 }

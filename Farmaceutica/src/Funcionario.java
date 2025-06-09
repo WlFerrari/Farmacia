@@ -1,7 +1,8 @@
 import java.util.UUID;
 
 public class Funcionario {
-    private UUID Id;
+    private static int counter = 0;
+    private int id;
     private String nome;
     private int idade;
     private Genero genero;
@@ -14,7 +15,7 @@ public class Funcionario {
     private double planoOdontologico = 3000;
 
     public Funcionario(String nome, int idade, Genero genero, Setor setor, double salariobase) {
-        Id = UUID.randomUUID();
+        id = ++counter;
         this.nome = nome;
         this.idade = idade;
         this.genero = genero;
@@ -23,8 +24,8 @@ public class Funcionario {
 
     }
 
-    public UUID getId() {
-        return Id;
+    public int getId() {
+        return id;
     }
 
     public String getNome() {
@@ -65,10 +66,6 @@ public class Funcionario {
 
     public double getPlanoOdontologico() {
         return planoOdontologico;
-    }
-
-    public void setId(UUID id) {
-        Id = id;
     }
 
     public void setNome(String nome) {
@@ -150,6 +147,6 @@ public class Funcionario {
     }
 
     public String toString(){
-        return ("ID: " + Id + "\nNome: " + nome + "\nIdade: " + idade + "\nGenero: " + genero + "\nSetor: " + setor + "\nCalculo Imposto: " + calcularValorIR()+ "\nSalário Base: " + salariobase);
+        return ("ID: " + id + "\nNome: " + nome + "\nIdade: " + idade + "\nGenero: " + genero + "\nSetor: " + setor + "\nCalculo Imposto: " + calcularValorIR()+ "\nSalário Base: " + salariobase);
     }
 }
