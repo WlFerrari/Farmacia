@@ -232,4 +232,14 @@ public class BancoDeDados {
             System.out.println();
         }
     }
+
+    public void listarFuncionarioPorSetor(Setor setor) {
+        System.out.println();
+        for(Funcionario f : funcionarios) {
+            if(f.getSetor().equals(setor)){
+                System.out.println(f.toString());
+                System.out.println();
+            }
+        }
+    }
 }

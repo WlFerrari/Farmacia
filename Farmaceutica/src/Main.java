@@ -41,7 +41,26 @@ public class Main {
 
     private static void menuFuncionarios() {
         System.out.println("\n--- Gerenciamento de Funcionários ---");
-        // Implemente aqui: Adicionar, Listar, Atualizar e Remover Funcionários
+        int opcao = 0;
+        do {
+            System.out.println("1. Adicionar Funcionários");
+            System.out.println("2. Remover Funcionários por ID");
+            System.out.println("3. Exibir Funcionários");
+            System.out.println("4. Exibir Funcionários por Setor");
+            System.out.println("5. Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine(); // limpa buffer
+
+            switch (opcao) {
+                case 1 -> db.adicionarFuncionario(Funcionario.funcionarioPrompt(scanner));
+                case 2 -> db.removerFuncionario(Funcionario.funcionarioIdPrompt(scanner));
+                case 3 -> db.listarFuncionarios();
+                case 4 -> db.listarFuncionarioPorSetor(Funcionario.funcionarioSetorPrompt(scanner));
+                case 5 -> System.out.println("Encerrando o sistema. Até logo!");
+                default -> System.out.println("Opção inválida. Tente novamente.");
+            }
+        } while (opcao != 5);
     }
 
     private static void menuProdutos() {
