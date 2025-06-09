@@ -1,7 +1,9 @@
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.UUID;
 
-public class  Funcionario {
+public class  Funcionario{
     private static int counter = 0;
     private int id;
     private String nome;
@@ -15,6 +17,7 @@ public class  Funcionario {
     private double planoSaude = 3000;
     private double planoOdontologico = 3000;
 
+
     public Funcionario(String nome, int idade, Genero genero, Setor setor, double salariobase) {
         id = ++counter;
         this.nome = nome;
@@ -26,23 +29,78 @@ public class  Funcionario {
     }
 
     public static Funcionario funcionarioPrompt(Scanner in){
-        System.out.print("Digite o nome do funcionário: ");
-        String nome = in.nextLine();
+        String nome;
+        int idade;
+        Genero genero;
+        Setor setor;
+        double salariobase;
+        Funcionario fTemp = null;
+        try{
+            System.out.print("Digite o nome do funcionário: ");
+            nome = in.nextLine();
 
-        System.out.print("Digite a idade do funcionário: ");
-        int idade = in.nextInt();
-        in.nextLine();
+            System.out.print("Digite a idade do funcionário: ");
+            idade = in.nextInt();
+            in.nextLine();
 
-        System.out.print("Digite o genero do funcionário:  ");
-        Genero genero = Genero.valueOf(in.nextLine().trim().toUpperCase());
+            System.out.println("Selecione o genero do funcionário:  ");
+            System.out.println("1. Masculino");
+            System.out.println("2. Feminino");
+            System.out.println("3. Não Informado");
+            switch(Integer.valueOf(in.nextLine())){
+                case 1:
+                    genero = Genero.MASCULINO;
+                    break;
+                case 2:
+                    genero = Genero.FEMININO;
+                    break;
+                case 3:
+                    genero = Genero.NAO_INFORMADO;
+                    break;
+                default:
+                    throw new IllegalArgumentException("Genero inválido");
+            }
 
-        System.out.print("Digite o setor do funcionário:  ");
-        Setor setor = Setor.valueOf(in.nextLine().trim().toUpperCase());
+            System.out.println("Selecione o setor do funcionário:  ");
+            System.out.println("1. Gerência");
+            System.out.println("2. Atendimento ao cliente");
+            System.out.println("3. Gestão de pessoas");
+            System.out.println("4. Financeiro");
+            System.out.println("5. Vendas");
+            System.out.println("6. Almoxarifado");
 
-        System.out.print("Digite o valor do salário base do funcionário: ");
-        double salariobase = Double.valueOf(in.nextLine());
+            switch(Integer.valueOf(in.nextLine())){
+                case 1:
+                    setor = Setor.GERENCIA;
+                    break;
+                case 2:
+                    setor = Setor.ATENDIMENTO_AO_CLIENTE;
+                    break;
+                case 3:
+                    setor = Setor.GESTAO_DE_PESSOAS;
+                    break;
+                case 4:
+                    setor = Setor.FINANCEIRO;
+                    break;
+                case 5:
+                    setor = Setor.VENDAS;
+                    break;
+                case 6:
+                    setor = Setor.ALMOXARIFADO;
+                    break;
+                default:
+                    throw new IllegalArgumentException("Setor inválido");
+            }
 
-        return new Funcionario(nome, idade, genero, setor, salariobase);
+            System.out.print("Digite o valor do salário base do funcionário: ");
+            salariobase = Double.valueOf(in.nextLine());
+
+            fTemp = new Funcionario(nome, idade, genero, setor, salariobase);
+            return fTemp;
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return fTemp;
     }
 
     public static int funcionarioIdPrompt(Scanner in){
@@ -177,10 +235,11 @@ public class  Funcionario {
     }
 
     public double calcularPl(){
-        return 0.0;
+        BancoDeDados bd = BancoDeDados.getInstanciaBanco();
+        return bd.getCaixa().calcularEstimativaLucro() * 0.1 / (double) (bd.getFuncionarios().size());
     }
 
     public String toString(){
-        return ("ID: " + id + "\nNome: " + nome + "\nIdade: " + idade + "\nGenero: " + genero + "\nSetor: " + setor + "\nCalculo Imposto: " + calcularValorIR()+ "\nSalário Base: " + salariobase);
+        return ("ID: " + id + "\nNome: " + nome + "\nIdade: " + idade + "\nGenero: " + genero + "\nSetor: " + setor + "\nCalculo Imposto: " + String.format("%.2f",calcularValorIR())+ "\nSalário Base: " + salariobase);
     }
 }
