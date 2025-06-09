@@ -10,6 +10,8 @@ public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
     private static BancoDeDados db = BancoDeDados.getInstanciaBanco();
+    private static List<Transportadora> transportadoras = new ArrayList<>();
+
 
     public static void main(String[] args) {
         inicializarCaixa();
@@ -140,8 +142,37 @@ public class Main {
 
 
     private static void menuTransportadoras() {
-        System.out.println("\n--- Gerenciamento de Transportadoras ---");
-        // Implemente aqui: Cadastrar, listar e editar transportadoras
+        int opcao;
+        do {
+            System.out.println("\n--- Gerenciamento de Transportadoras ---");
+            System.out.println("1 - Cadastrar transportadora");
+            System.out.println("2 - Listar transportadoras");
+            System.out.println("3 - Editar transportadora");
+            System.out.println("4 - Sair");
+            System.out.print("Escolha uma opção: ");
+
+            opcao = scanner.nextInt();
+            scanner.nextLine(); // consumir quebra de linha
+
+            switch (opcao) {
+                case 1:
+                    Transportadora novaTransportadora = Transportadora.transportadoraPrompt();
+                    transportadoras.add(novaTransportadora);
+                    System.out.println("Transportadora cadastrada com sucesso!");
+                    break;
+                case 2:
+                    Transportadora.listarTransportadoras(transportadoras);
+                    break;
+                case 3:
+                    Transportadora.editarTransportadora(transportadoras);
+                    break;
+                case 4:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+            }
+        } while (opcao != 4);
     }
 
     private static void menuNegocios() {
