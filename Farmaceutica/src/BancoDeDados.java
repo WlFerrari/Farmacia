@@ -186,18 +186,6 @@ public class BancoDeDados {
         return null;
     }
 
-    public void listarProdutos() {
-        System.out.println("\n--- Lista de Produtos ---");
-        if (produtos.isEmpty()) {
-            System.out.println("Nenhum produto cadastrado.");
-        } else {
-            for (Produto p : produtos) {
-                System.out.printf("ID: %s | Nome: %s | Compra: R$%.2f | Venda: R$%.2f | Estoque: %d\n",
-                        p.getId(), p.getNome(), p.getValorCompra(), p.getValorVenda(), p.getQuantidadeEstoque());
-            }
-        }
-    }
-
     public Negocio buscarNegocioPorId(int id) {
         if (id != negocios.get(0).getId()) {
             for (Negocio negocio : negocios) {
@@ -229,11 +217,14 @@ public class BancoDeDados {
     }
 
     public void listarProdutos() {
-        System.out.println("\n----------------------------------------------------");
-        System.out.println("Listagem de produtos: \n");
-        for (Produto p : produtos) {
-            System.out.println(p.toString());
-            System.out.println();
+        System.out.println("\n--- Lista de Produtos ---");
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+        } else {
+            for (Produto p : produtos) {
+                System.out.printf("ID: %s | Nome: %s | Compra: R$%.2f | Venda: R$%.2f | Estoque: %d\n",
+                        p.getId(), p.getNome(), p.getValorCompra(), p.getValorVenda(), p.getQuantidadeEstoque());
+            }
         }
     }
 
