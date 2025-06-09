@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 //Classe destinada a armazenar as coleções de objetos que serão usadas durante a execução do projeto
@@ -97,22 +96,15 @@ public class BancoDeDados {
         }
     }
 
-    public boolean atualizarEstoqueProduto(UUID id, int novoEstoque) {
-        Produto produto = buscarProdutoPorId(id);
-        if (produto != null) {
-            produto.setQuantidadeEstoque(novoEstoque);
-            return true;
+    public void atualizarProduto(UUID id, Produto novoProduto) {
+        if (id != null && novoProduto != null) {
+            for (int i = 0; i < produtos.size(); i++) {
+                if (id.equals(produtos.get(i).getId())) {
+                    produtos.set(i, novoProduto);
+                    break;
+                }
+            }
         }
-        return false;
-    }
-
-    public boolean atualizarPrecoProduto(UUID id, double novoPreco) {
-        Produto produto = buscarProdutoPorId(id);
-        if (produto != null) {
-            produto.setValorVenda(novoPreco);
-            return true;
-        }
-        return false;
     }
 
     public void atualizarNegocio(UUID id, Negocio novoNegocio) {
@@ -147,13 +139,10 @@ public class BancoDeDados {
         }
     }
 
-    public boolean removerProdutoPorId(UUID id) {
-        Produto p = buscarProdutoPorId(id);
-        if (p != null) {
-            produtos.remove(p);
-            return true;
+    public void removerProduto(UUID id) {
+        if (id != null) {
+            produtos.removeIf(produto -> id.equals(produto.getId()));
         }
-        return false;
     }
 
     public void removerNegocioPorId(UUID id) {
@@ -190,18 +179,6 @@ public class BancoDeDados {
             }
         }
         return null;
-    }
-
-    public void listarProdutos() {
-        System.out.println("\n--- Lista de Produtos ---");
-        if (produtos.isEmpty()) {
-            System.out.println("Nenhum produto cadastrado.");
-        } else {
-            for (Produto p : produtos) {
-                System.out.printf("ID: %s | Nome: %s | Compra: R$%.2f | Venda: R$%.2f | Estoque: %d\n",
-                        p.getId(), p.getNome(), p.getValorCompra(), p.getValorVenda(), p.getQuantidadeEstoque());
-            }
-        }
     }
 
     public Negocio buscarNegocioPorId(UUID id) {

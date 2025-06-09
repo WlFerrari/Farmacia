@@ -1,14 +1,15 @@
 import java.util.UUID;
 
 public class Produto {
-    private UUID id;
+    private static int counter = 0;
+    private int id;
     private String nome;
     private double valorCompra;
     private double valorVenda;
     private int quantidadeEstoque;
 
     public Produto(String nome, double valorCompra, double valorVenda, int quantidadeEstoque) {
-        this.id = UUID.randomUUID();
+        id = ++counter;
         this.nome = nome;
         this.valorCompra = valorCompra;
         this.valorVenda = valorVenda;
@@ -18,13 +19,10 @@ public class Produto {
         }
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
@@ -61,9 +59,9 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto: " + nome +
+                "\n ID: " + id +
                 "\nCompra: R$" + valorCompra +
-                ", Venda: R$" + valorVenda +
-                ", Estoque: " + quantidadeEstoque +
-                ", ID: " + id;
+                "\n Venda: R$" + valorVenda +
+                "\n Quantidade em estoque: " + quantidadeEstoque;
     }
 }

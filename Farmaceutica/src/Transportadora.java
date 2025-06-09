@@ -27,6 +27,6 @@ public class Transportadora {
 
     @Override
     public String toString() {
-        return nome + " - Regiões: " + String.join(", ", regioes);
+        return "Nome da transportadora: "+nome + " \nRegiões de cobertura: " + String.join(", ", regioes);
     }
 }
