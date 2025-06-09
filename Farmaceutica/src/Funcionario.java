@@ -108,7 +108,13 @@ public class  Funcionario{
 
     public static Setor funcionarioSetorPrompt(Scanner in){
         try{
-            System.out.println("Digite o Setor do funcionário: ");
+            System.out.println("Digite o Setor do funcionário (gerencia, " +
+                    "atendimento ao cliente," +
+                    " gestao de pessoas, " +
+                    "financeiro, " +
+                    "vendas, " +
+                    "almoxarifado, " +
+                    "transportadora): ");
             String setor = in.nextLine().trim().toUpperCase();
 
             List setores = Arrays.asList(Setor.values());

@@ -11,7 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
         inicializarCaixa();
-        inicializarDados();
 
         int opcao;
         do {
@@ -235,109 +234,5 @@ public class Main {
         System.out.printf("Valor atual em caixa: R$ %.2f%n", caixa.getValor());
         System.out.printf("Estimativa de lucro mensal: R$ %.2f%n", lucroMensal);
         System.out.printf("Estimativa de lucro anual: R$ %.2f%n", lucroAnual);
-    }
-
-    public static void inicializarDados() {
-        BancoDeDados db = BancoDeDados.getInstanciaBanco();
-
-        Funcionario joao = new Funcionario(
-                "joao",
-                20,
-                Genero.MASCULINO,
-                Setor.ATENDIMENTO_AO_CLIENTE,
-                1000.00
-        );
-        db.adicionarFuncionario(joao);
-
-        Funcionario maria = new Funcionario(
-                "maria",
-                20,
-                Genero.FEMININO,
-                Setor.FINANCEIRO,
-                1200.00
-        );
-        db.adicionarFuncionario(maria);
-
-        Funcionario matheus = new Funcionario(
-                "matheus",
-                20,
-                Genero.NAO_INFORMADO,
-                Setor.GERENCIA,
-                1500.00
-        );
-        db.adicionarFuncionario(matheus);
-
-
-        Funcionario renato = new Funcionario(
-                "renato",
-                20,
-                Genero.MASCULINO,
-                Setor.ALMOXARIFADO,
-                1600.00
-        );
-        db.adicionarFuncionario(renato);
-
-        Funcionario carlos = new Funcionario(
-                "carlos",
-                20,
-                Genero.MASCULINO,
-                Setor.GESTAO_DE_PESSOAS,
-                1700.00
-        );
-        db.adicionarFuncionario(carlos);
-
-        Funcionario augusto = new Funcionario(
-                "augusto",
-                20,
-                Genero.MASCULINO,
-                Setor.TRANSPORTADORAS,
-                1700.00
-        );
-        db.adicionarFuncionario(augusto);
-
-        Funcionario charles = new Funcionario(
-                "charles",
-                20,
-                Genero.FEMININO,
-                Setor.VENDAS,
-                1500.00
-        );
-        db.adicionarFuncionario(charles);
-
-        Caixa caixa = new Caixa(20000.00);
-
-        Produto nimesulida = new Produto(
-                "nimesulida",
-                20.00,
-                30.00,
-                100
-        );
-        db.adicionarProduto(nimesulida);
-
-        Produto tylenol = new Produto(
-                "tylenol",
-                15.00,
-                30.00,
-                100
-        );
-        db.adicionarProduto(tylenol);
-
-        List<String> regioes = new ArrayList<>();
-        regioes.add("reg1");
-        regioes.add("reg2");
-        Transportadora transportadora = new Transportadora(
-                "Transportadora X",
-                regioes);
-        db.adicionarTransportadora(transportadora);
-
-        List<Funcionario> participantes = new ArrayList<>();
-        participantes.add(joao);
-        Negocio negocio = new Negocio(
-                Tipo.COMPRA,
-                Status.CONCLUIDO,
-                participantes,
-                transportadora
-        );
-        db.adicionarNegocio(negocio);
     }
 }

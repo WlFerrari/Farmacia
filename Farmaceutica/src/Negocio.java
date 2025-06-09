@@ -142,5 +142,4 @@ public class Negocio {
                 "\nParticipantes: \n" + participantesToString() +
                 "\nTransportadora: " + transportadora.getNome();
     }
-
 }
