@@ -1,5 +1,6 @@
 import com.sun.jdi.connect.Transport;
 
+import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
@@ -229,5 +230,13 @@ public class Main {
                 "Transportadora X",
                 regioes);
 
+        List<Funcionario> participantes = new ArrayList<>();
+        participantes.add(joao);
+        Negocio negocio = new Negocio(
+                Tipo.COMPRA,
+                Status.CONCLUIDO,
+                participantes,
+                transportadora
+        );
     }
 }
