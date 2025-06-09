@@ -152,8 +152,8 @@ public class BancoDeDados {
         funcionarios.removeIf(funcionario -> funcionario.getId() == id);
     }
 
-    public void removerProduto(int id) {
-        produtos.removeIf(produto -> produto.getId() == id);
+    public boolean removerProduto(int id) {
+        return produtos.removeIf(produto -> produto.getId() == id);
     }
 
     public void removerNegocioPorId(int id) {

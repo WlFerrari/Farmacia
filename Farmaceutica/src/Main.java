@@ -88,7 +88,7 @@ public class Main {
                     System.out.print("Digite o ID do produto a remover: ");
                     try {
                         int id = scanner.nextInt();
-                        if (db.removerProdutoPorId(id)) {
+                        if (db.removerProduto(id)) {
                             System.out.println("Produto removido com sucesso!");
                         } else {
                             System.out.println("Produto não encontrado.");
