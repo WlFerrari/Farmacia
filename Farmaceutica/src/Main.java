@@ -1,4 +1,6 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Main {
 
@@ -45,9 +47,93 @@ public class Main {
     }
 
     private static void menuProdutos() {
-        System.out.println("\n--- Gerenciamento de Produtos ---");
-        // Implemente aqui: Adicionar, Listar, Atualizar estoque e preços
+        int opcao;
+        do {
+            System.out.println("\n--- Gerenciamento de Produtos ---");
+            System.out.println("1. Adicionar Produto");
+            System.out.println("2. Remover Produto");
+            System.out.println("3. Atualizar Estoque");
+            System.out.println("4. Atualizar Preço de Venda");
+            System.out.println("5. Listar Produtos");
+            System.out.println("6. Voltar ao Menu Principal");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine(); // limpa buffer
+
+            switch (opcao) {
+                case 1 -> {
+                    System.out.print("Nome do produto: ");
+                    String nome = scanner.nextLine();
+
+                    System.out.print("Valor de compra: ");
+                    double valorCompra = scanner.nextDouble();
+
+                    System.out.print("Valor de venda: ");
+                    double valorVenda = scanner.nextDouble();
+
+                    System.out.print("Quantidade em estoque: ");
+                    int estoque = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Produto novoProduto = new Produto(nome, valorCompra, valorVenda, estoque);
+                    db.adicionarProduto(novoProduto);
+                    System.out.println("Produto adicionado com sucesso!");
+                }
+                case 2 -> {
+                    db.listarProdutos();
+                    System.out.print("Digite o ID do produto a remover: ");
+                    try {
+                        UUID id = UUID.fromString(scanner.nextLine());
+                        if (db.removerProdutoPorId(id)) {
+                            System.out.println("Produto removido com sucesso!");
+                        } else {
+                            System.out.println("Produto não encontrado.");
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("ID inválido.");
+                    }
+                }
+                case 3 -> {
+                    db.listarProdutos();
+                    System.out.print("Digite o ID do produto para atualizar estoque: ");
+                    try {
+                        UUID id = UUID.fromString(scanner.nextLine());
+                        System.out.print("Novo estoque: ");
+                        int novoEstoque = scanner.nextInt();
+                        scanner.nextLine();
+                        if (db.atualizarEstoqueProduto(id, novoEstoque)) {
+                            System.out.println("Estoque atualizado com sucesso!");
+                        } else {
+                            System.out.println("Produto não encontrado.");
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("ID inválido.");
+                    }
+                }
+                case 4 -> {
+                    db.listarProdutos();
+                    System.out.print("Digite o ID do produto para atualizar preço: ");
+                    try {
+                        UUID id = UUID.fromString(scanner.nextLine());
+                        System.out.print("Novo preço de venda: ");
+                        double novoPreco = scanner.nextDouble();
+                        scanner.nextLine();
+                        if (db.atualizarPrecoProduto(id, novoPreco)) {
+                            System.out.println("Preço atualizado com sucesso!");
+                        } else {
+                            System.out.println("Produto não encontrado.");
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("ID inválido.");
+                    }
+                }
+                case 5 -> db.listarProdutos();
+                case 6 -> System.out.println("Retornando ao menu principal.");
+                default -> System.out.println("Opção inválida. Tente novamente.");
+            }
+        } while (opcao != 6);
     }
+
 
     private static void menuTransportadoras() {
         System.out.println("\n--- Gerenciamento de Transportadoras ---");
