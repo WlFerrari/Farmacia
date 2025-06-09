@@ -31,4 +31,8 @@ public class Caixa {
     public double estimativaLucroAnual() {
         return calcularEstimativaLucro() * 12;
     }
+
+    public void printEstimativaLucro() {
+        System.out.println("Estimativa de lucro: " + calcularEstimativaLucro());
+    }
 }

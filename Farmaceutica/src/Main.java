@@ -1,16 +1,13 @@
-import com.sun.jdi.connect.Transport;
-
-import java.sql.Array;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
 
 public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
     private static BancoDeDados db = BancoDeDados.getInstanciaBanco();
+    private static List<Transportadora> transportadoras = new ArrayList<>();
+
 
     public static void main(String[] args) {
         inicializarCaixa();
@@ -160,8 +157,37 @@ public class Main {
 
 
     private static void menuTransportadoras() {
-        System.out.println("\n--- Gerenciamento de Transportadoras ---");
-        // Implemente aqui: Cadastrar, listar e editar transportadoras
+        int opcao;
+        do {
+            System.out.println("\n--- Gerenciamento de Transportadoras ---");
+            System.out.println("1 - Cadastrar transportadora");
+            System.out.println("2 - Listar transportadoras");
+            System.out.println("3 - Editar transportadora");
+            System.out.println("4 - Sair");
+            System.out.print("Escolha uma opção: ");
+
+            opcao = scanner.nextInt();
+            scanner.nextLine(); // consumir quebra de linha
+
+            switch (opcao) {
+                case 1:
+                    Transportadora novaTransportadora = Transportadora.transportadoraPrompt();
+                    transportadoras.add(novaTransportadora);
+                    System.out.println("Transportadora cadastrada com sucesso!");
+                    break;
+                case 2:
+                    Transportadora.listarTransportadoras(transportadoras);
+                    break;
+                case 3:
+                    Transportadora.editarTransportadora(transportadoras);
+                    break;
+                case 4:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+            }
+        } while (opcao != 4);
     }
 
     private static void menuNegocios() {
@@ -209,6 +235,8 @@ public class Main {
     }
 
     public static void inicializarDados() {
+        BancoDeDados db = BancoDeDados.getInstanciaBanco();
+
         Funcionario joao = new Funcionario(
                 "joao",
                 20,
@@ -216,6 +244,7 @@ public class Main {
                 Setor.ATENDIMENTO_AO_CLIENTE,
                 1000.00
         );
+        db.adicionarFuncionario(joao);
 
         Funcionario maria = new Funcionario(
                 "maria",
@@ -224,6 +253,7 @@ public class Main {
                 Setor.FINANCEIRO,
                 1200.00
         );
+        db.adicionarFuncionario(maria);
 
         Funcionario matheus = new Funcionario(
                 "matheus",
@@ -232,6 +262,8 @@ public class Main {
                 Setor.GERENCIA,
                 1500.00
         );
+        db.adicionarFuncionario(matheus);
+
 
         Funcionario renato = new Funcionario(
                 "renato",
@@ -240,6 +272,8 @@ public class Main {
                 Setor.ALMOXARIFADO,
                 1600.00
         );
+        db.adicionarFuncionario(renato);
+
         Funcionario carlos = new Funcionario(
                 "carlos",
                 20,
@@ -247,6 +281,8 @@ public class Main {
                 Setor.GESTAO_DE_PESSOAS,
                 1700.00
         );
+        db.adicionarFuncionario(carlos);
+
         Funcionario augusto = new Funcionario(
                 "augusto",
                 20,
@@ -254,6 +290,8 @@ public class Main {
                 Setor.TRANSPORTADORAS,
                 1700.00
         );
+        db.adicionarFuncionario(augusto);
+
         Funcionario charles = new Funcionario(
                 "charles",
                 20,
@@ -261,6 +299,7 @@ public class Main {
                 Setor.VENDAS,
                 1500.00
         );
+        db.adicionarFuncionario(charles);
 
         Caixa caixa = new Caixa(20000.00);
 
@@ -270,12 +309,14 @@ public class Main {
                 30.00,
                 100
         );
+        db.adicionarProduto(produto);
         List<String> regioes = new ArrayList<>();
         regioes.add("reg1");
         regioes.add("reg2");
         Transportadora transportadora = new Transportadora(
                 "Transportadora X",
                 regioes);
+        db.adicionarTransportadora(transportadora);
 
         List<Funcionario> participantes = new ArrayList<>();
         participantes.add(joao);
@@ -285,5 +326,6 @@ public class Main {
                 participantes,
                 transportadora
         );
+        db.adicionarNegocio(negocio);
     }
 }
