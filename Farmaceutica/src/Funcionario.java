@@ -268,7 +268,7 @@ public class  Funcionario{
                 + "\nVT: " + VT
                 + "\nPlanoSaude: " + planoSaude
                 + "\nPlanoOdontologico: " + planoOdontologico
-                + "\nBonus part. lucros da empresa: " + calcularPl();
+                + "\nBonus part. lucros da empresa: " + String.format("%.2f",calcularPl());
     }
 
     public String toStringResumido(){
