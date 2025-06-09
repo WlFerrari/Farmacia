@@ -242,4 +242,8 @@ public class  Funcionario{
     public String toString(){
         return ("ID: " + id + "\nNome: " + nome + "\nIdade: " + idade + "\nGenero: " + genero + "\nSetor: " + setor + "\nCalculo Imposto: " + String.format("%.2f",calcularValorIR())+ "\nSalário Base: " + salariobase);
     }
+
+    public String toStringResumido(){
+        return ("ID: " + id + "\nNome: " + nome +"\nSetor: " + setor);
+    }
 }

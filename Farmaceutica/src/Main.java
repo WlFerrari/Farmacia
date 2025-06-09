@@ -11,6 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         inicializarCaixa();
+        inicializarDados();
 
         int opcao;
         do {
@@ -191,8 +192,37 @@ public class Main {
     }
 
     private static void menuNegocios() {
-        System.out.println("\n--- Negócios em Andamento ---");
         // Implemente aqui: Criar venda/compra, listar negócios por status
+        Scanner sc = new Scanner(System.in);
+        BancoDeDados bd = BancoDeDados.getInstanciaBanco();
+        int opcao;
+        do {
+            System.out.println("-------------------------------------------------------------------------------------");
+            System.out.println("\n--- Negócios em Andamento ---");
+            System.out.println("1. Criar Negocio");
+            System.out.println("2. Listar todos os Negocios");
+            System.out.println("3. Listar Negocios por status");
+            System.out.println("4. Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine(); // limpa buffer
+
+            switch (opcao) {
+                case 1 -> bd.adicionarNegocio(Negocio.negocioPromt());
+                case 2 -> bd.listarNegocios();
+                case 3 -> bd.listarNegociosPorStatus(statusPromt());
+                case 4 -> System.out.println("Fechando o menu de negócios.");
+                default -> System.out.println("Opção inválida. Tente novamente.");
+            }
+        } while (opcao != 4);
+
+    }
+
+    private static Status statusPromt(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Informe o status a consultar (aberto/concluido/cancelado): ");
+        return Status.valueOf(sc.nextLine().toUpperCase());
     }
 
     private static void menuRelatorios() {
