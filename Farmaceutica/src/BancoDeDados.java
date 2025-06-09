@@ -85,14 +85,30 @@ public class BancoDeDados {
 
     //Metodos para alteração de item nas listas------------------------------------------------------------------------
     public void atualizarFuncionario(int id, Funcionario novoFuncionario) {
-        if (novoFuncionario != null) {
-            for (int i = 0; i < funcionarios.size(); i++) {
-                if (id == funcionarios.get(i).getId()) {
-                    funcionarios.set(i, novoFuncionario);
-                    break;
-                }
+        for (int i = 0; i < funcionarios.size(); i++) {
+            if (id == funcionarios.get(i).getId()) {
+                funcionarios.set(i, novoFuncionario);
+                break;
             }
         }
+    }
+
+    public boolean atualizarEstoqueProduto(int id, int novoEstoque) {
+        Produto produto = buscarProdutoPorId(id);
+        if (produto != null) {
+            produto.setQuantidadeEstoque(novoEstoque);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean atualizarPrecoProduto(int id, double novoPreco) {
+        Produto produto = buscarProdutoPorId(id);
+        if (produto != null) {
+            produto.setValorVenda(novoPreco);
+            return true;
+        }
+        return false;
     }
 
     public void atualizarProduto(int id, Produto novoProduto) {
@@ -133,53 +149,63 @@ public class BancoDeDados {
     //Metodos para deletar um objeto dos Arrays ----------------------------------------------------------------------
 
     public void removerFuncionario(int id) {
-            funcionarios.removeIf(funcionario -> id == funcionario.getId());
+        funcionarios.removeIf(funcionario -> funcionario.getId() == id);
     }
 
-    public void removerProduto(int id) {
-            produtos.removeIf(produto -> id == produto.getId());
+    public boolean removerProduto(int id) {
+        return produtos.removeIf(produto -> produto.getId() == id);
     }
 
     public void removerNegocioPorId(int id) {
-            negocios.removeIf(negocio -> id == negocio.getId());
+        negocios.removeIf(negocio -> negocio.getId() == id);
     }
 
     public void removerTransportadoraPorNome(String nome) {
-        if (nome != null) {
-            transportadoras.removeIf(transportadora -> nome.equals(transportadora.getNome()));
-        }
+        transportadoras.removeIf(transportadora -> transportadora.getNome().equals(nome));
     }
 
     //Metodos para retornar o objeto solicitado ----------------------------------------------------------------------
 
     public Funcionario getFuncionarioPorId(int id) {
-
+        if (id != funcionarios.get(0).getId()) {
             for (Funcionario funcionario : funcionarios) {
                 if (id == funcionario.getId()) {
                     return funcionario;
                 }
             }
-
+        }
         return null;
     }
 
     public Produto buscarProdutoPorId(int id) {
-
         for (Produto produto : produtos) {
-                if (id == produto.getId()) {
-                    return produto;
-                }
+            if (produto.getId() == id) {
+                return produto;
             }
+        }
         return null;
     }
 
-    public Negocio buscarNegocioPorId(int id) {
+    public void listarProdutos() {
+        System.out.println("\n--- Lista de Produtos ---");
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+        } else {
+            for (Produto p : produtos) {
+                System.out.printf("ID: %s | Nome: %s | Compra: R$%.2f | Venda: R$%.2f | Estoque: %d\n",
+                        p.getId(), p.getNome(), p.getValorCompra(), p.getValorVenda(), p.getQuantidadeEstoque());
+            }
+        }
+    }
 
+    public Negocio buscarNegocioPorId(int id) {
+        if (id != negocios.get(0).getId()) {
             for (Negocio negocio : negocios) {
                 if (id == negocio.getId()) {
                     return negocio;
                 }
             }
+        }
         return null;
     }
 
@@ -193,11 +219,7 @@ public class BancoDeDados {
         }
         return null;
     }
-
-
-    //Metodos para listar detalhadamente os dados de cada objeto das listas -------------------------------------------
-
-    public void listarFuncionarios() {
+   public void listarFuncionarios() {
         System.out.println("\n----------------------------------------------------");
         System.out.println("Listagem de funcionarios: \n");
         for (Funcionario f : funcionarios) {
