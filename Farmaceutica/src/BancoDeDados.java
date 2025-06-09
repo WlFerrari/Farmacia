@@ -58,7 +58,7 @@ public class BancoDeDados {
                 20,
                 Genero.NAO_INFORMADO,
                 Setor.GERENCIA,
-                1500.00
+                5000.00
         );
         funcionarios.add(matheus);
 
