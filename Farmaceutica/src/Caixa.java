@@ -17,10 +17,14 @@ public class Caixa {
 
     public double calcularEstimativaLucro() {
         BancoDeDados db = BancoDeDados.getInstanciaBanco();
+        //variavel soma representa o somatorio do valor de venda dos produtos
+        //variavel valorCompra representa o somatore do valor de compra dos produtos
         double soma = 0;
+        double valorCompra = 0;
         for (Produto produto : db.getProdutos()) {
-            //TODO ITERAR EM NEGOCIOS
+            soma = soma + (produto.getValorVenda() * produto.getQuantidadeEstoque());
+            valorCompra = valorCompra + (produto.getValorCompra()) * produto.getQuantidadeEstoque();
         }
-        return 0.0;
+        return soma - valorCompra;
     }
 }
