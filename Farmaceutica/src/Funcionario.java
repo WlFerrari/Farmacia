@@ -1,6 +1,7 @@
+import java.util.Scanner;
 import java.util.UUID;
 
-public class Funcionario {
+public class  Funcionario {
     private static int counter = 0;
     private int id;
     private String nome;
@@ -23,6 +24,39 @@ public class Funcionario {
         this.salariobase = salariobase;
 
     }
+
+    public static Funcionario funcionarioPrompt(Scanner in){
+        System.out.print("Digite o nome do funcionário: ");
+        String nome = in.nextLine();
+
+        System.out.print("Digite a idade do funcionário: ");
+        int idade = in.nextInt();
+        in.nextLine();
+
+        System.out.print("Digite o genero do funcionário:  ");
+        Genero genero = Genero.valueOf(in.nextLine().trim().toUpperCase());
+
+        System.out.print("Digite o setor do funcionário:  ");
+        Setor setor = Setor.valueOf(in.nextLine().trim().toUpperCase());
+
+        System.out.print("Digite o valor do salário base do funcionário: ");
+        double salariobase = Double.valueOf(in.nextLine());
+
+        return new Funcionario(nome, idade, genero, setor, salariobase);
+    }
+
+    public static int funcionarioIdPrompt(Scanner in){
+        System.out.println("Digite o ID do funcionário: ");
+        int id = Integer.parseInt(in.nextLine());
+        return id;
+    }
+
+    public static Setor funcionarioSetorPrompt(Scanner in){
+        System.out.println("Digite o Setor do funcionário: ");
+        Setor s = Setor.valueOf(in.nextLine().trim().toUpperCase());
+        return s;
+    }
+
 
     public int getId() {
         return id;

@@ -219,4 +219,49 @@ public class BancoDeDados {
         }
         return null;
     }
+   public void listarFuncionarios() {
+        System.out.println("\n----------------------------------------------------");
+        System.out.println("Listagem de funcionarios: \n");
+        for (Funcionario f : funcionarios) {
+            System.out.println(f.toString());
+            System.out.println();
+        }
+    }
+
+    public void listarProdutos() {
+        System.out.println("\n----------------------------------------------------");
+        System.out.println("Listagem de produtos: \n");
+        for (Produto p : produtos) {
+            System.out.println(p.toString());
+            System.out.println();
+        }
+    }
+
+    public void listarTransportadoras() {
+        System.out.println("\n----------------------------------------------------");
+        System.out.println("Listagem de transportadoras: \n");
+        for (Transportadora t : transportadoras) {
+            System.out.println(t.toString());
+            System.out.println();
+        }
+    }
+
+    public void listarNegocios() {
+        System.out.println("\n----------------------------------------------------");
+        System.out.println("Listagem de negocios: \n");
+        for (Negocio n : negocios) {
+            System.out.println(n.toString());
+            System.out.println();
+        }
+    }
+
+    public void listarFuncionarioPorSetor(Setor setor) {
+        System.out.println();
+        for(Funcionario f : funcionarios) {
+            if(f.getSetor().equals(setor)){
+                System.out.println(f.toString());
+                System.out.println();
+            }
+        }
+    }
 }
