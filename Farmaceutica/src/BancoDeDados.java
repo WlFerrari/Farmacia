@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 //Classe destinada a armazenar as coleções de objetos que serão usadas durante a execução do projeto
 public class BancoDeDados {
@@ -34,7 +35,95 @@ public class BancoDeDados {
         produtos.add(new Produto("Cloridrato de Sertralina 50mg", 4.00, 8.00, 30));
         produtos.add(new Produto("Metformina 850mg", 2.50, 5.00, 70));
 
+        Funcionario joao = new Funcionario(
+                "joao",
+                20,
+                Genero.MASCULINO,
+                Setor.ATENDIMENTO_AO_CLIENTE,
+                1000.00
+        );
+        funcionarios.add(joao);
 
+        Funcionario maria = new Funcionario(
+                "maria",
+                20,
+                Genero.FEMININO,
+                Setor.FINANCEIRO,
+                1200.00
+        );
+        funcionarios.add(maria);
+
+        Funcionario matheus = new Funcionario(
+                "matheus",
+                20,
+                Genero.NAO_INFORMADO,
+                Setor.GERENCIA,
+                1500.00
+        );
+        funcionarios.add(matheus);
+
+
+        Funcionario renato = new Funcionario(
+                "renato",
+                20,
+                Genero.MASCULINO,
+                Setor.ALMOXARIFADO,
+                1600.00
+        );
+        funcionarios.add(renato);
+
+        Funcionario carlos = new Funcionario(
+                "carlos",
+                20,
+                Genero.MASCULINO,
+                Setor.GESTAO_DE_PESSOAS,
+                1700.00
+        );
+        funcionarios.add(carlos);
+
+        Funcionario augusto = new Funcionario(
+                "augusto",
+                20,
+                Genero.MASCULINO,
+                Setor.TRANSPORTADORAS,
+                1700.00
+        );
+        funcionarios.add(augusto);
+
+        Funcionario charles = new Funcionario(
+                "charles",
+                20,
+                Genero.FEMININO,
+                Setor.VENDAS,
+                1500.00
+        );
+        funcionarios.add(charles);
+
+//        Produto produto = new Produto(
+//                "nimesulida",
+//                20.00,
+//                30.00,
+//                100
+//        );
+//        db.adicionarProduto(produto);
+
+        List<String> regioes = new ArrayList<>();
+        regioes.add("reg1");
+        regioes.add("reg2");
+        Transportadora transportadora = new Transportadora(
+                "Transportadora X",
+                regioes);
+        transportadoras.add(transportadora);
+
+        List<Funcionario> participantes = new ArrayList<>();
+        participantes.add(joao);
+        Negocio negocio = new Negocio(
+                Tipo.COMPRA,
+                Status.CONCLUIDO,
+                participantes,
+                transportadora
+        );
+        negocios.add(negocio);
     }
 
     // Método público para obter a instância única
@@ -266,8 +355,6 @@ public class BancoDeDados {
                 System.out.println(f.toString());
                 System.out.println();
             }
-        } catch(Exception e){
-            e.printStackTrace();
         }
     }
 
