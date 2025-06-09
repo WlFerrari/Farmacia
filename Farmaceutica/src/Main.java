@@ -53,6 +53,7 @@ public class Main {
             System.out.println("3. Exibir Funcionários");
             System.out.println("4. Exibir Funcionários por Setor");
             System.out.println("5. Voltar ao Menu Principal");
+
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine(); // limpa buffer
@@ -305,13 +306,22 @@ public class Main {
 
         Caixa caixa = new Caixa(20000.00);
 
-        Produto produto = new Produto(
+        Produto nimesulida = new Produto(
                 "nimesulida",
                 20.00,
                 30.00,
                 100
         );
-        db.adicionarProduto(produto);
+        db.adicionarProduto(nimesulida);
+
+        Produto tylenol = new Produto(
+                "tylenol",
+                15.00,
+                30.00,
+                100
+        );
+        db.adicionarProduto(tylenol);
+
         List<String> regioes = new ArrayList<>();
         regioes.add("reg1");
         regioes.add("reg2");

@@ -1,7 +1,4 @@
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class  Funcionario{
     private static int counter = 0;
@@ -25,7 +22,7 @@ public class  Funcionario{
         this.genero = genero;
         this.setor = setor;
         this.salariobase = salariobase;
-
+        tiposBeneficios();
     }
 
     public static Funcionario funcionarioPrompt(Scanner in){
@@ -110,9 +107,21 @@ public class  Funcionario{
     }
 
     public static Setor funcionarioSetorPrompt(Scanner in){
-        System.out.println("Digite o Setor do funcionário: ");
-        Setor s = Setor.valueOf(in.nextLine().trim().toUpperCase());
-        return s;
+        try{
+            System.out.println("Digite o Setor do funcionário: ");
+            String setor = in.nextLine().trim().toUpperCase();
+
+            List setores = Arrays.asList(Setor.values());
+
+            if(setores.contains(Setor.valueOf(setor))){
+                return Setor.valueOf(setor);
+            } else{
+                throw new IllegalArgumentException("Setor inválido");
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
@@ -240,7 +249,19 @@ public class  Funcionario{
     }
 
     public String toString(){
-        return ("ID: " + id + "\nNome: " + nome + "\nIdade: " + idade + "\nGenero: " + genero + "\nSetor: " + setor + "\nCalculo Imposto: " + String.format("%.2f",calcularValorIR())+ "\nSalário Base: " + salariobase);
+        return ("ID: " + id
+                + "\nNome: " + nome
+                + "\nIdade: " + idade
+                + "\nGenero: " + genero
+                + "\nSetor: " + setor
+                + "\nCalculo Imposto: "
+                + String.format("%.2f",calcularValorIR())
+                + "\nSalário Base: " + salariobase)
+                + "\nVA: " + VA
+                + "\nVR: " + VR
+                + "\nVT: " + VT
+                + "\nPlanoSaude: " + planoSaude
+                + "\nPlanoOdontologico: " + planoOdontologico;
     }
 
     public String toStringResumido(){

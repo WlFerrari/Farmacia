@@ -266,6 +266,8 @@ public class BancoDeDados {
                 System.out.println(f.toString());
                 System.out.println();
             }
+        } catch(Exception e){
+            e.printStackTrace();
         }
     }
 
