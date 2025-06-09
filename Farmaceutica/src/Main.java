@@ -173,11 +173,12 @@ public class Main {
             switch (opcao) {
                 case 1:
                     Transportadora novaTransportadora = Transportadora.transportadoraPrompt();
-                    transportadoras.add(novaTransportadora);
+                    db.adicionarTransportadora(novaTransportadora);
                     System.out.println("Transportadora cadastrada com sucesso!");
                     break;
                 case 2:
-                    Transportadora.listarTransportadoras(transportadoras);
+                    db.listarTransportadoras();
+//                    Transportadora.listarTransportadoras(transportadoras);
                     break;
                 case 3:
                     Transportadora.editarTransportadora(transportadoras);
