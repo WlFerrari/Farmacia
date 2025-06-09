@@ -167,13 +167,11 @@ public class BancoDeDados {
     //Metodos para retornar o objeto solicitado ----------------------------------------------------------------------
 
     public Funcionario getFuncionarioPorId(int id) {
-        if (id != funcionarios.get(0).getId()) {
             for (Funcionario funcionario : funcionarios) {
                 if (id == funcionario.getId()) {
                     return funcionario;
                 }
             }
-        }
         return null;
     }
 
@@ -242,7 +240,7 @@ public class BancoDeDados {
         System.out.println("Listagem de negocios: \n");
         for (Negocio n : negocios) {
             System.out.println(n.toString());
-            System.out.println();
+            System.out.println("------------------");
         }
     }
 
@@ -258,6 +256,7 @@ public class BancoDeDados {
 
     public void listarNegociosPorStatus(Status status) {
         System.out.println();
+        System.out.println("Listagem de negocios com o status "+ status.name() +": \n");
         for(Negocio n : negocios) {
             if(n.getStatus().equals(status)){
                 System.out.println(n.toString());

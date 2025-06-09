@@ -31,7 +31,7 @@ public class Negocio {
         //Pegar instancia do BancoDeDados
         BancoDeDados bd = BancoDeDados.getInstanciaBanco();
 
-        System.out.print("Informe o tipo do negocio (compra/venda): ");
+        System.out.print("\nInforme o tipo do negocio (compra/venda): ");
         Tipo tipo = Tipo.valueOf(in.nextLine().toUpperCase());
 
         System.out.print("Informe o status do negocio (aberto/concluido/cancelado): ");
@@ -47,7 +47,7 @@ public class Negocio {
             if(!participantes.isEmpty()){
                 System.out.println("Participantes já adicionados:");
                 for (Funcionario f : participantes){
-                    f.toString();
+                    System.out.println(f.toStringResumido());
                     System.out.println();
                 }
             }
@@ -69,20 +69,19 @@ public class Negocio {
                 }else{
                     System.out.println("Erro - Não existe funcionário com o ID informado.");
                 }
-
-                System.out.println("\nDeseja adicionar mais algum funcionário responsável? (1=S / 2=N): ");
-                i = Integer.parseInt(in.nextLine());
             }
+            System.out.print("\nDeseja adicionar mais algum funcionário responsável? (1=S / 2=N): ");
+            i = Integer.parseInt(in.nextLine());
         }
-
-        System.out.println("Transportadoras cadastradas: ");
+        System.out.println("-------------------------------------");
+        System.out.println("Transportadoras cadastradas: \n");
         int j = 0;
         for(Transportadora t : bd.getTransportadoras()){
-            System.out.print(j+" - ");
+            System.out.println("Indice "+j+":");
             System.out.println(t.toString());
             System.out.println();
         }
-        System.out.print("\nInforme o numero para cadastro da transportadora responsável pelo negócio: ");
+        System.out.print("\nInforme o indice que corresponda à transportadora responsável pelo negócio: ");
         j = Integer.parseInt(in.nextLine());
         Transportadora transportadoraResponsavel = bd.getTransportadoras().get(j);
 
@@ -126,12 +125,21 @@ public class Negocio {
         this.transportadora = transportadora;
     }
 
+    public String participantesToString(){
+        String part = "";
+
+        for(Funcionario f : participantes){
+            part += "\n    ID: "+f.getId()+" | Nome: "+f.getNome()+"\n    setor: "+f.getSetor()+"\n";
+        }
+        return part;
+    }
+
     @Override
     public String toString() {
         return "Negócio ID: " + id +
                 "\nTipo: " + tipo +
                 "\nStatus: " + status +
-                "\nParticipantes: " + participantes.stream().map(Funcionario::getNome).toList() +
+                "\nParticipantes: \n" + participantesToString() +
                 "\nTransportadora: " + transportadora.getNome();
     }
 
