@@ -1,4 +1,6 @@
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Negocio {
     private final UUID id;
@@ -13,6 +15,12 @@ public class Negocio {
         this.status = status;
         this.participantes = participantes;
         this.transportadora = transportadora;
+        if (participantes == null || participantes.isEmpty()) {
+            throw new IllegalArgumentException("Um negócio deve ter ao menos um participante.");
+        }
+        if (transportadora == null) {
+            throw new IllegalArgumentException("A transportadora não pode ser nula.");
+        }
     }
 
     public UUID getId() {
@@ -50,4 +58,14 @@ public class Negocio {
     public void setTransportadora(Transportadora transportadora) {
         this.transportadora = transportadora;
     }
+
+    @Override
+    public String toString() {
+        return "Negócio ID: " + id +
+                "\nTipo: " + tipo +
+                "\nStatus: " + status +
+                "\nParticipantes: " + participantes.stream().map(Funcionario::getNome).toList() +
+                "\nTransportadora: " + transportadora.getNome();
+    }
+
 }

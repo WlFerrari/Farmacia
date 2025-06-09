@@ -2,7 +2,7 @@ import java.util.List;
 
 public class Transportadora {
     private String nome;
-    List<String> regioes;
+    private List<String> regioes;
 
     public Transportadora(String nome, List<String> regioes) {
         this.nome = nome;

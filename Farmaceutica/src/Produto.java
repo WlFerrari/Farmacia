@@ -13,6 +13,9 @@ public class Produto {
         this.valorCompra = valorCompra;
         this.valorVenda = valorVenda;
         this.quantidadeEstoque = quantidadeEstoque;
+        if (valorCompra < 0 || valorVenda < 0 || quantidadeEstoque < 0) {
+            throw new IllegalArgumentException("Valores de produto não podem ser negativos.");
+        }
     }
 
     public UUID getId() {
@@ -53,5 +56,14 @@ public class Produto {
 
     public void setQuantidadeEstoque(int quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    @Override
+    public String toString() {
+        return "Produto: " + nome +
+                "\nCompra: R$" + valorCompra +
+                ", Venda: R$" + valorVenda +
+                ", Estoque: " + quantidadeEstoque +
+                ", ID: " + id;
     }
 }

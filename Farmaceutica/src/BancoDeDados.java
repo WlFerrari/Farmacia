@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 //Classe destinada a armazenar as coleções de objetos que serão usadas durante a execução do projeto
@@ -193,17 +192,6 @@ public class BancoDeDados {
             }
         }
         return null;
-    }
-
-    public List<Funcionario> listarFuncionariosSetor(String setor){
-        Setor setorEnum = Setor.valueOf(setor.trim().toUpperCase());
-        List<Funcionario> funcionarioSetor = new ArrayList<>();
-        for (Funcionario f : funcionarios) {
-            if(f.getSetor().equals(setorEnum)){
-                funcionarioSetor.add(f);
-            }
-        }
-        return funcionarioSetor;
     }
 
 

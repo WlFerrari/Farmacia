@@ -27,4 +27,8 @@ public class Caixa {
         }
         return soma - valorCompra;
     }
+
+    public double estimativaLucroAnual() {
+        return calcularEstimativaLucro() * 12;
+    }
 }
