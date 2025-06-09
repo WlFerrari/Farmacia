@@ -15,12 +15,26 @@ public class BancoDeDados {
 
 
     // Construtor privado para evitar instanciamento externo
-    private BancoDeDados(){
+    private BancoDeDados() {
         this.funcionarios = new ArrayList<Funcionario>();
         this.produtos = new ArrayList<Produto>();
         this.transportadoras = new ArrayList<Transportadora>();
         this.negocios = new ArrayList<Negocio>();
         caixa = new Caixa(200000);
+
+        // Produtos iniciais da farmácia
+        produtos.add(new Produto("Dipirona 500mg", 1.50, 3.00, 100));
+        produtos.add(new Produto("Paracetamol 750mg", 1.80, 3.50, 120));
+        produtos.add(new Produto("Ibuprofeno 400mg", 2.20, 4.50, 80));
+        produtos.add(new Produto("Amoxicilina 500mg", 3.00, 6.00, 60));
+        produtos.add(new Produto("Omeprazol 20mg", 2.00, 4.00, 90));
+        produtos.add(new Produto("Loratadina 10mg", 1.60, 3.20, 75));
+        produtos.add(new Produto("Simeticona 125mg", 1.90, 3.80, 50));
+        produtos.add(new Produto("Ácido Acetilsalicílico 100mg", 1.40, 2.80, 110));
+        produtos.add(new Produto("Cloridrato de Sertralina 50mg", 4.00, 8.00, 30));
+        produtos.add(new Produto("Metformina 850mg", 2.50, 5.00, 70));
+
+
     }
 
     // Método público para obter a instância única
@@ -207,7 +221,8 @@ public class BancoDeDados {
         }
         return null;
     }
-   public void listarFuncionarios() {
+
+    public void listarFuncionarios() {
         System.out.println("\n----------------------------------------------------");
         System.out.println("Listagem de funcionarios: \n");
         for (Funcionario f : funcionarios) {
@@ -248,8 +263,8 @@ public class BancoDeDados {
 
     public void listarFuncionarioPorSetor(Setor setor) {
         System.out.println();
-        for(Funcionario f : funcionarios) {
-            if(f.getSetor().equals(setor)){
+        for (Funcionario f : funcionarios) {
+            if (f.getSetor().equals(setor)) {
                 System.out.println(f.toString());
                 System.out.println();
             }

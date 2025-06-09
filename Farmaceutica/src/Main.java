@@ -51,7 +51,7 @@ public class Main {
             System.out.println("2. Remover Funcionários por ID");
             System.out.println("3. Exibir Funcionários");
             System.out.println("4. Exibir Funcionários por Setor");
-            System.out.println("5. Sair");
+            System.out.println("5. Voltar ao Menu Principal");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine(); // limpa buffer
@@ -61,7 +61,7 @@ public class Main {
                 case 2 -> db.removerFuncionario(Funcionario.funcionarioIdPrompt(scanner));
                 case 3 -> db.listarFuncionarios();
                 case 4 -> db.listarFuncionarioPorSetor(Funcionario.funcionarioSetorPrompt(scanner));
-                case 5 -> System.out.println("Encerrando o sistema. Até logo!");
+                case 5 -> System.out.println("Retornando ao menu principal.");
                 default -> System.out.println("Opção inválida. Tente novamente.");
             }
         } while (opcao != 5);
@@ -163,7 +163,7 @@ public class Main {
             System.out.println("1 - Cadastrar transportadora");
             System.out.println("2 - Listar transportadoras");
             System.out.println("3 - Editar transportadora");
-            System.out.println("4 - Sair");
+            System.out.println("4 - Voltar ao Menu Principal");
             System.out.print("Escolha uma opção: ");
 
             opcao = scanner.nextInt();
@@ -182,7 +182,7 @@ public class Main {
                     Transportadora.editarTransportadora(transportadoras);
                     break;
                 case 4:
-                    System.out.println("Saindo...");
+                    System.out.println("Retornando ao menu principal.");
                     break;
                 default:
                     System.out.println("Opção inválida.");
