@@ -1,145 +1,121 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class Negocio {
-    private static int counter = 0;
-    private int id;
-    private Tipo tipo;
+    private static int contadorId = 0;
+    private final int id;
+    private final Tipo tipo;
     private Status status;
-    private List<Funcionario> participantes;
-    private Transportadora transportadora;
+    private final List<Funcionario> participantes;
+    private final Transportadora transportadora;
 
     public Negocio(Tipo tipo, Status status, List<Funcionario> participantes, Transportadora transportadora) {
-        id = ++counter;
+        this.id = ++contadorId;
         this.tipo = tipo;
         this.status = status;
         this.participantes = participantes;
         this.transportadora = transportadora;
-        if (participantes == null || participantes.isEmpty()) {
-            throw new IllegalArgumentException("Um negócio deve ter ao menos um participante.");
-        }
-        if (transportadora == null) {
-            throw new IllegalArgumentException("A transportadora não pode ser nula.");
-        }
     }
 
-    public static Negocio negocioPromt(){
-        Scanner in = new Scanner(System.in);
-        //Pegar instancia do BancoDeDados
-        BancoDeDados bd = BancoDeDados.getInstanciaBanco();
-
-        System.out.print("\nInforme o tipo do negocio (compra/venda): ");
-        Tipo tipo = Tipo.valueOf(in.nextLine().toUpperCase());
-
-        System.out.print("Informe o status do negocio (aberto/concluido/cancelado): ");
-        Status status = Status.valueOf(in.nextLine().toUpperCase());
-        System.out.println();
-
-        int i = 1;
-        ArrayList<Funcionario> participantes = new ArrayList<>();
-        while (i==1){
-
-            //Checa se o usuário já adicionou algum participante do negocio
-            //Se já, mostra os dados daqueles já cadastrados
-            if(!participantes.isEmpty()){
-                System.out.println("Participantes já adicionados:");
-                for (Funcionario f : participantes){
-                    System.out.println(f.toStringResumido());
-                    System.out.println();
-                }
-            }
-            System.out.print("Informe o id do funcionário para adicionar responsável pelo negócio: \n(Informe 0 para remover responsável) ");
-            int id = Integer.parseInt(in.nextLine());
-
-            //Verifica se o usuário deseja remover um participante que ele já informou, pois pode ter cadastrado o funcionário errado
-            //Caso não tenha escolhido remover, faz a lógica de adição do participante
-            if(id == 0){
-                if(!participantes.isEmpty()){
-                    participantes.removeLast();
-                }else System.out.println("Primeiro adicione responsáveis pelo negócio");
-            }else{
-
-                Funcionario f = bd.getFuncionarioPorId(id);
-
-                if(f != null){
-                    participantes.add(f);
-                }else{
-                    System.out.println("Erro - Não existe funcionário com o ID informado.");
-                }
-            }
-            System.out.print("\nDeseja adicionar mais algum funcionário responsável? (1=S / 2=N): ");
-            i = Integer.parseInt(in.nextLine());
-        }
-        System.out.println("-------------------------------------");
-        System.out.println("Transportadoras cadastradas: \n");
-        int j = 0;
-        for(Transportadora t : bd.getTransportadoras()){
-            System.out.println("Indice "+j+":");
-            System.out.println(t.toString());
-            System.out.println();
-        }
-        System.out.print("\nInforme o indice que corresponda à transportadora responsável pelo negócio: ");
-        j = Integer.parseInt(in.nextLine());
-        Transportadora transportadoraResponsavel = bd.getTransportadoras().get(j);
-
-        return new Negocio(tipo, status, participantes, transportadoraResponsavel);
-
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public Tipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public List<Funcionario> getParticipantes() {
-        return participantes;
-    }
-
-    public void setParticipantes(List<Funcionario> participantes) {
-        this.participantes = participantes;
-    }
-
-    public Transportadora getTransportadora() {
-        return transportadora;
-    }
-
-    public void setTransportadora(Transportadora transportadora) {
-        this.transportadora = transportadora;
-    }
-
-    public String participantesToString(){
-        String part = "";
-
-        for(Funcionario f : participantes){
-            part += "\n    ID: "+f.getId()+" | Nome: "+f.getNome()+"\n    setor: "+f.getSetor()+"\n";
-        }
-        return part;
-    }
+    // Getters e Setters
+    public int getId() { return id; }
+    public Tipo getTipo() { return tipo; }
+    public Status getStatus() { return status; }
+    public void setStatus(Status status) { this.status = status; }
+    public List<Funcionario> getParticipantes() { return participantes; }
+    public Transportadora getTransportadora() { return transportadora; }
 
     @Override
     public String toString() {
-        return "Negócio ID: " + id +
-                "\nTipo: " + tipo +
-                "\nStatus: " + status +
-                "\nParticipantes: \n" + participantesToString() +
-                "\nTransportadora: " + transportadora.getNome();
+        String nomesParticipantes = participantes.stream()
+                .map(Funcionario::getNome)
+                .collect(Collectors.joining(", "));
+
+        return String.format(
+                "ID do Negócio: %d\nTipo: %s\nStatus: %s\nTransportadora: %s\nParticipantes: [%s]",
+                id, tipo, status, transportadora.getNome(), nomesParticipantes
+        );
+    }
+
+    /**
+     * Guia o usuário passo a passo para criar um novo objeto Negocio.
+     * @param scanner O objeto Scanner para ler a entrada do usuário.
+     * @return um novo objeto Negocio ou null se a criação for cancelada.
+     */
+    public static Negocio negocioPrompt(Scanner scanner) {
+        BancoDeDados db = BancoDeDados.getInstanciaBanco();
+
+        System.out.println("\n--- Criação de Novo Negócio ---");
+
+        // 1. Selecionar o Tipo de Negócio
+        System.out.println("Selecione o tipo de negócio: ");
+        System.out.println("1. Venda");
+        System.out.println("2. Compra");
+        System.out.print("Opção: ");
+        int tipoOpt = Integer.parseInt(scanner.nextLine());
+        Tipo tipo = (tipoOpt == 1) ? Tipo.VENDA : Tipo.COMPRA;
+
+        // 2. Selecionar Funcionários Participantes
+        List<Funcionario> participantes = new ArrayList<>();
+        if (db.getFuncionarios().isEmpty()) {
+            System.out.println("ERRO: Não há funcionários cadastrados. Cancele e cadastre um funcionário primeiro.");
+            return null;
+        }
+
+        while (true) {
+            System.out.println("\n--- Seleção de Funcionários ---");
+            db.listarFuncionariosResumido();
+            System.out.print("Digite o ID de um funcionário para adicionar ao negócio (ou digite 'fim' para continuar): ");
+            String inputId = scanner.nextLine();
+
+            if (inputId.equalsIgnoreCase("fim")) {
+                if (participantes.isEmpty()) {
+                    System.out.println("É necessário adicionar pelo menos um funcionário.");
+                    continue; // Força o usuário a adicionar pelo menos um
+                }
+                break;
+            }
+
+            try {
+                int idFunc = Integer.parseInt(inputId);
+                Funcionario f = db.getFuncionarioPorId(idFunc);
+                if (f != null) {
+                    if (!participantes.contains(f)) {
+                        participantes.add(f);
+                        System.out.printf("-> Funcionário '%s' adicionado.%n", f.getNome());
+                    } else {
+                        System.out.println("-> Este funcionário já foi adicionado.");
+                    }
+                } else {
+                    System.out.println("-> ID de funcionário não encontrado.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("-> Entrada inválida. Digite um ID numérico ou 'fim'.");
+            }
+        }
+
+        // 3. Selecionar a Transportadora
+        if (db.getTransportadoras().isEmpty()) {
+            System.out.println("ERRO: Não há transportadoras cadastrados. Cancele e cadastre uma transportadora primeiro.");
+            return null;
+        }
+
+        Transportadora transportadoraSelecionada = null;
+        while (transportadoraSelecionada == null) {
+            System.out.println("\n--- Seleção de Transportadora ---");
+            db.listarTransportadoras();
+            System.out.print("Digite o NOME da transportadora desejada: ");
+            String nomeTransportadora = scanner.nextLine();
+            transportadoraSelecionada = db.buscarTransportadoraPorNome(nomeTransportadora);
+
+            if (transportadoraSelecionada == null) {
+                System.out.println("-> Nome de transportadora não encontrado. Tente novamente.");
+            }
+        }
+
+        // Criação do objeto final com status ABERTO por padrão
+        return new Negocio(tipo, Status.ABERTO, participantes, transportadoraSelecionada);
     }
 }
