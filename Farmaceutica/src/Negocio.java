@@ -7,9 +7,10 @@ public class Negocio {
     private static int contadorId = 0;
     private final int id;
     private final Tipo tipo;
-    private Status status;
     private final List<Funcionario> participantes;
     private final Transportadora transportadora;
+    private Status status;
+    private boolean isAtivo;
 
     public Negocio(Tipo tipo, Status status, List<Funcionario> participantes, Transportadora transportadora) {
         this.id = ++contadorId;
@@ -17,30 +18,12 @@ public class Negocio {
         this.status = status;
         this.participantes = participantes;
         this.transportadora = transportadora;
-    }
-
-    // Getters e Setters
-    public int getId() { return id; }
-    public Tipo getTipo() { return tipo; }
-    public Status getStatus() { return status; }
-    public void setStatus(Status status) { this.status = status; }
-    public List<Funcionario> getParticipantes() { return participantes; }
-    public Transportadora getTransportadora() { return transportadora; }
-
-    @Override
-    public String toString() {
-        String nomesParticipantes = participantes.stream()
-                .map(Funcionario::getNome)
-                .collect(Collectors.joining(", "));
-
-        return String.format(
-                "ID do Negócio: %d\nTipo: %s\nStatus: %s\nTransportadora: %s\nParticipantes: [%s]",
-                id, tipo, status, transportadora.getNome(), nomesParticipantes
-        );
+        isAtivo = true;
     }
 
     /**
      * Guia o usuário passo a passo para criar um novo objeto Negocio.
+     *
      * @param scanner O objeto Scanner para ler a entrada do usuário.
      * @return um novo objeto Negocio ou null se a criação for cancelada.
      */
@@ -117,5 +100,50 @@ public class Negocio {
 
         // Criação do objeto final com status ABERTO por padrão
         return new Negocio(tipo, Status.ABERTO, participantes, transportadoraSelecionada);
+    }
+
+    // Getters e Setters
+    public int getId() {
+        return id;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public List<Funcionario> getParticipantes() {
+        return participantes;
+    }
+
+    public Transportadora getTransportadora() {
+        return transportadora;
+    }
+
+    public boolean isAtivo() {
+        return isAtivo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        isAtivo = ativo;
+    }
+
+    @Override
+    public String toString() {
+        String nomesParticipantes = participantes.stream()
+                .map(Funcionario::getNome)
+                .collect(Collectors.joining(", "));
+
+        return String.format(
+                "ID do Negócio: %d\nTipo: %s\nStatus: %s\nTransportadora: %s\nParticipantes: [%s]",
+                id, tipo, status, transportadora.getNome(), nomesParticipantes
+        );
     }
 }
