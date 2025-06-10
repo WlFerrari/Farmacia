@@ -77,6 +77,15 @@ public class BancoDeDados {
         return false;
     }
 
+    public boolean atualizarStatusNegocio(int id, Status status) {
+        Negocio negocio = buscarNegocioPorId(id);
+        if (negocio != null) {
+            negocio.setStatus(status);
+            return true;
+        }
+        return false;
+    }
+
     // ... outros métodos de atualização ...
 
     // --- Remove Methods (Delete) ---
@@ -105,6 +114,10 @@ public class BancoDeDados {
     }
     public Transportadora buscarTransportadoraPorNome(String nome) {
         return transportadoras.stream().filter(t -> t.getNome().equalsIgnoreCase(nome)).findFirst().orElse(null);
+    }
+
+    public Transportadora buscarTransportadoraPorId(int id) {
+        return transportadoras.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
     }
 
     // --- Listing Methods (Console Output) ---
@@ -204,6 +217,13 @@ public class BancoDeDados {
         produtos.add(new Produto("Paracetamol 750mg", 1.80, 3.50, 120));
         produtos.add(new Produto("Ibuprofeno 400mg", 2.20, 4.50, 80));
         produtos.add(new Produto("Amoxicilina 500mg", 3.00, 6.00, 60));
+        produtos.add(new Produto("Espironolactona 25mg", 2.50, 6.20, 35));
+        produtos.add(new Produto("Omeprazol 20mg", 2.00, 4.00, 90));
+        produtos.add(new Produto("Loratadina 10mg", 1.60, 3.20, 75));
+        produtos.add(new Produto("Simeticona 125mg", 1.90, 3.80, 50));
+        produtos.add(new Produto("Ácido Acetilsalicílico 100mg", 1.40, 2.80, 110));
+        produtos.add(new Produto("Cloridrato de Sertralina 50mg", 4.00, 8.00, 30));
+        produtos.add(new Produto("Metformina 850mg", 2.50, 5.00, 70));
         // ... (restante dos produtos)
 
         // Funcionários

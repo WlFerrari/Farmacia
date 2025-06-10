@@ -5,10 +5,13 @@ import java.util.Scanner;
 public class Transportadora {
     private String nome;
     private List<String> regioes;
+    private final int id;
+    private static int counter = 0;
 
     public Transportadora(String nome, List<String> regioes) {
         this.nome = nome;
         this.regioes = regioes;
+        this.id = ++counter;
     }
 
     // Getters e Setters
@@ -16,10 +19,11 @@ public class Transportadora {
     public void setNome(String nome) { this.nome = nome; }
     public List<String> getRegioes() { return regioes; }
     public void setRegioes(List<String> regioes) { this.regioes = regioes; }
+    public int getId() { return id; }
 
     @Override
     public String toString() {
-        return "Transportadora: " + nome + "\nRegiões de cobertura: " + String.join(", ", regioes);
+        return "ID: " + id + "\nTransportadora: " + nome + "\nRegiões de cobertura: " + String.join(", ", regioes);
     }
 
     // ATUALIZADO: Recebe o Scanner como parâmetro

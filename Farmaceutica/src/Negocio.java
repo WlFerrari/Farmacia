@@ -106,12 +106,12 @@ public class Negocio {
         while (transportadoraSelecionada == null) {
             System.out.println("\n--- Seleção de Transportadora ---");
             db.listarTransportadoras();
-            System.out.print("Digite o NOME da transportadora desejada: ");
-            String nomeTransportadora = scanner.nextLine();
-            transportadoraSelecionada = db.buscarTransportadoraPorNome(nomeTransportadora);
+            System.out.print("Digite o ID da transportadora desejada: ");
+            int idTransportadora = scanner.nextInt();
+            transportadoraSelecionada = db.buscarTransportadoraPorId(idTransportadora);
 
-            if (transportadoraSelecionada == null) {
-                System.out.println("-> Nome de transportadora não encontrado. Tente novamente.");
+            if (!db.getTransportadoras().contains(transportadoraSelecionada)) {
+                System.out.println("-> ID da transportadora não encontrado. Tente novamente.");
             }
         }
 

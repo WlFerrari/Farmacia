@@ -160,7 +160,8 @@ public class Main {
             System.out.println("1. Criar Negócio");
             System.out.println("2. Listar todos os Negócios");
             System.out.println("3. Listar Negócios por Status");
-            System.out.println("4. Voltar ao Menu Principal");
+            System.out.println("4. Atualizar Status do Negócio");
+            System.out.println("5. Voltar ao Menu Principal");
             System.out.print("Escolha uma opção: ");
             opcao = lerOpcao();
 
@@ -189,12 +190,33 @@ public class Main {
                     }
                     break;
                 case 4:
+                    db.listarNegociosPorStatus(Status.ABERTO);
+                    System.out.println("Digite o ID do Negócio: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+
+                    System.out.println("Escolha uma opção de Status: ");
+                    System.out.println("1. CONCLUIDO");
+                    System.out.println("2. CANCELADO");
+                    System.out.print("Escolha: ");
+                    opcao = lerOpcao();
+
+                    if (opcao == 1) {
+                        db.atualizarStatusNegocio(id, Status.CONCLUIDO);
+                        System.out.println("Status atualizado com sucesso!");
+                    } else if (opcao == 2) {
+                        db.atualizarStatusNegocio(id, Status.CANCELADO);
+                        System.out.println("Status atualizado com sucesso!");
+                    } else {
+                        System.out.println("Opção inválida.");
+                    }
+                    break;
+                case 5:
                     System.out.println("Retornando ao menu principal.");
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-        } while (opcao != 4);
+        } while (opcao != 5);
     }
 
     private static void menuRelatorios() {
