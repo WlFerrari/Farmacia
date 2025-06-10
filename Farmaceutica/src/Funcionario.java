@@ -128,6 +128,7 @@ public class Funcionario {
         try {
             System.out.print("Digite o Setor do funcionário (ex: GERENCIA, VENDAS): ");
             String setorStr = in.nextLine().trim().toUpperCase();
+            setorStr = setorStr.replace(" ", "_");
             return Setor.valueOf(setorStr);
         } catch (IllegalArgumentException e) {
             System.out.println("Setor inválido. Tente novamente.");
