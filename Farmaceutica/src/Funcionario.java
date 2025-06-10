@@ -126,7 +126,8 @@ public class Funcionario {
 
     public static Setor funcionarioSetorPrompt(Scanner in) {
         try {
-            System.out.print("Digite o Setor do funcionário (ex: GERENCIA, VENDAS): ");
+            System.out.print("Digite o Setor do funcionário (ex: gerencia, vendas, atendimento ao cliente, " +
+                    "gestao de pessoas, financeiro, almoxarifado): \n");
             String setorStr = in.nextLine().trim().toUpperCase();
             setorStr = setorStr.replace(" ", "_");
             return Setor.valueOf(setorStr);
