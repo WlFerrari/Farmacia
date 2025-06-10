@@ -9,15 +9,6 @@ public class BancoDeDados {
 
     // --- Singleton Implementation ---
     private static BancoDeDados instancia;
-
-    // Método público estático para obter a instância única da classe.
-    public static BancoDeDados getInstanciaBanco() {
-        if (instancia == null) {
-            instancia = new BancoDeDados();
-        }
-        return instancia;
-    }
-
     // --- Constantes ---
     private final int LIMITE_GERENCIA = 1;
     private final int LIMITE_ATENDIMENTO = 4;
@@ -25,8 +16,6 @@ public class BancoDeDados {
     private final int LIMITE_FINANCEIRO = 3;
     private final int LIMITE_VENDAS = 5;
     private final int LIMITE_ALMOXARIFADO = 3;
-
-
     // --- Attributes ---
     private final Caixa caixa;
     private final ArrayList<Funcionario> funcionarios;
@@ -39,8 +28,6 @@ public class BancoDeDados {
     private int counterFinanceiro;
     private int counterAlmoxarifado;
     private int counterVendas;
-
-
 
     // --- Constructor (Private to enforce Singleton) ---
     private BancoDeDados() {
@@ -59,19 +46,41 @@ public class BancoDeDados {
         popularDadosIniciais();
     }
 
+    // Método público estático para obter a instância única da classe.
+    public static BancoDeDados getInstanciaBanco() {
+        if (instancia == null) {
+            instancia = new BancoDeDados();
+        }
+        return instancia;
+    }
+
     // --- Getters ---
-    public ArrayList<Funcionario> getFuncionarios() { return funcionarios; }
-    public ArrayList<Produto> getProdutos() { return produtos; }
-    public ArrayList<Transportadora> getTransportadoras() { return transportadoras; }
-    public ArrayList<Negocio> getNegocios() { return negocios; }
-    public Caixa getCaixa() { return caixa; }
+    public ArrayList<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public ArrayList<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public ArrayList<Transportadora> getTransportadoras() {
+        return transportadoras;
+    }
+
+    public ArrayList<Negocio> getNegocios() {
+        return negocios;
+    }
+
+    public Caixa getCaixa() {
+        return caixa;
+    }
 
 
     // --- Add Methods (Create) ---
     public void adicionarFuncionario(Funcionario funcionario) {
-        try{
+        try {
             // checando se ainda ha vaga em lista funcionarios
-            if(checarLimiteFuncionarios(funcionarios, funcionario)) {
+            if (checarLimiteFuncionarios(funcionarios, funcionario)) {
                 if (funcionario != null) {
                     switch (funcionario.getSetor()) {
                         case Setor.GERENCIA -> this.counterGerencia++;
@@ -84,7 +93,7 @@ public class BancoDeDados {
                     }
                     funcionarios.add(funcionario);
                 }
-            } else{
+            } else {
                 throw new RuntimeException("Não foi possivel adicionar funcionario - Setor designado cheio!");
             }
         } catch (Exception e) {
@@ -94,44 +103,44 @@ public class BancoDeDados {
 
     // Metodo para checar se o limite de funcionarios está cheio
     // Retorna falso se a lista de funcionarios estiver cheia, verdadeiro caso ainda haja vaga na lista
-    public boolean checarLimiteFuncionarios(ArrayList<Funcionario> funcionarios, Funcionario func){
+    public boolean checarLimiteFuncionarios(ArrayList<Funcionario> funcionarios, Funcionario func) {
         int innerCounterGerencia = this.counterGerencia;
-        int outerCounterAlmoxarifado = this.counterAlmoxarifado;
+        int innerCounterAlmoxarifado = this.counterAlmoxarifado;
         int innerCounterAtendimento = this.counterAtendimento;
-        int outerCounterFinanceiro = this.counterFinanceiro;
+        int innerCounterFinanceiro = this.counterFinanceiro;
         int innerCounterVendas = this.counterVendas;
         int innerCounterGestao = this.counterGestao;
 
-        switch(func.getSetor()){
+        switch (func.getSetor()) {
             case Setor.GERENCIA -> innerCounterGerencia++;
             case Setor.ATENDIMENTO_AO_CLIENTE -> innerCounterAtendimento++;
             case Setor.GESTAO_DE_PESSOAS -> innerCounterGestao++;
-            case Setor.FINANCEIRO -> outerCounterFinanceiro++;
+            case Setor.FINANCEIRO -> innerCounterFinanceiro++;
             case Setor.VENDAS -> innerCounterVendas++;
-            case Setor.ALMOXARIFADO -> outerCounterAlmoxarifado++;
+            case Setor.ALMOXARIFADO -> innerCounterAlmoxarifado++;
             default -> throw new RuntimeException("Setor invalido");
         }
 
         // Checando se cada Setor está cheio
-        if(innerCounterGerencia > LIMITE_GERENCIA){
+        if (innerCounterGerencia > LIMITE_GERENCIA) {
             return false;
-        } else if(innerCounterAtendimento > LIMITE_ATENDIMENTO) {
+        } else if (innerCounterAtendimento > LIMITE_ATENDIMENTO) {
             return false;
-        } else if(innerCounterGestao > LIMITE_GESTAO) {
+        } else if (innerCounterGestao > LIMITE_GESTAO) {
             return false;
-        } else if(outerCounterFinanceiro > LIMITE_FINANCEIRO) {
+        } else if (innerCounterFinanceiro > LIMITE_FINANCEIRO) {
             return false;
-        } else if(innerCounterVendas > LIMITE_VENDAS) {
+        } else if (innerCounterVendas > LIMITE_VENDAS) {
             return false;
-        } else if(outerCounterAlmoxarifado > LIMITE_ALMOXARIFADO) {
+        } else if (innerCounterAlmoxarifado > LIMITE_ALMOXARIFADO) {
             return false;
-        } else{
+        } else {
             return true;
         }
     }
 
     // Exibe o contador de funcionarios em cada setor
-    public void exibirContagemFuncionarios(){
+    public void exibirContagemFuncionarios() {
         System.out.println();
         System.out.println("Gerencia: " + counterGerencia
                 + "\nAtendimento: " + counterAtendimento
@@ -144,9 +153,11 @@ public class BancoDeDados {
     public void adicionarProduto(Produto produto) {
         if (produto != null) produtos.add(produto);
     }
+
     public void adicionarTransportadora(Transportadora transportadora) {
         if (transportadora != null) transportadoras.add(transportadora);
     }
+
     public void adicionarNegocio(Negocio negocio) {
         if (negocio != null) negocios.add(negocio);
     }
@@ -183,14 +194,33 @@ public class BancoDeDados {
 
     // --- Remove Methods (Delete) ---
     public void removerFuncionario(int id) {
-        funcionarios.removeIf(f -> f.getId() == id);
+        //funcionarios.removeIf(f -> f.getId() == id);
+        for (Funcionario funcionario : funcionarios) {
+            if (funcionario.getId() == id) {
+                funcionario.setAtivo(false);
+                switch (funcionario.getSetor()) {
+                    case Setor.GERENCIA -> counterGerencia--;
+                    case Setor.ATENDIMENTO_AO_CLIENTE -> counterAtendimento--;
+                    case Setor.GESTAO_DE_PESSOAS -> counterGestao--;
+                    case Setor.FINANCEIRO -> counterFinanceiro--;
+                    case Setor.VENDAS -> counterVendas--;
+                    case Setor.ALMOXARIFADO -> counterAlmoxarifado--;
+                    default -> throw new RuntimeException("Setor invalido");
+                }
+                return;
+            }
+        }
+        System.out.println("\nFuncionario nao encontrado");
     }
+
     public boolean removerProduto(int id) {
         return produtos.removeIf(p -> p.getId() == id);
     }
+
     public void removerNegocioPorId(int id) {
         negocios.removeIf(n -> n.getId() == id);
     }
+
     public void removerTransportadoraPorNome(String nome) {
         transportadoras.removeIf(t -> t.getNome().equalsIgnoreCase(nome));
     }
@@ -199,12 +229,15 @@ public class BancoDeDados {
     public Funcionario getFuncionarioPorId(int id) {
         return funcionarios.stream().filter(f -> f.getId() == id).findFirst().orElse(null);
     }
+
     public Produto buscarProdutoPorId(int id) {
         return produtos.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
     }
+
     public Negocio buscarNegocioPorId(int id) {
         return negocios.stream().filter(n -> n.getId() == id).findFirst().orElse(null);
     }
+
     public Transportadora buscarTransportadoraPorNome(String nome) {
         return transportadoras.stream().filter(t -> t.getNome().equalsIgnoreCase(nome)).findFirst().orElse(null);
     }
@@ -221,8 +254,10 @@ public class BancoDeDados {
             return;
         }
         for (Funcionario f : funcionarios) {
-            System.out.println(f.toString());
-            System.out.println("------------------");
+            if (f.isAtivo()) {
+                System.out.println(f.toString());
+                System.out.println("------------------");
+            }
         }
     }
 
@@ -278,7 +313,7 @@ public class BancoDeDados {
     public void listarFuncionarioPorSetor(Setor setor) {
         System.out.printf("\n--- Funcionários do Setor: %s ---%n", setor.name());
         long count = funcionarios.stream()
-                .filter(f -> f.getSetor() == setor)
+                .filter(f -> f.getSetor() == setor && f.isAtivo())
                 .peek(f -> {
                     System.out.println(f.toString());
                     System.out.println("------------------");
