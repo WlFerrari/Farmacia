@@ -55,7 +55,8 @@ public class Main {
             System.out.println("2. Remover Funcionário por ID");
             System.out.println("3. Listar todos os Funcionários");
             System.out.println("4. Listar Funcionários por Setor");
-            System.out.println("5. Voltar ao Menu Principal");
+            System.out.println("5. Exibir Contagem de Funcionarios");
+            System.out.println("6. Voltar ao Menu Principal");
             System.out.print("Escolha uma opção: ");
             opcao = lerOpcao();
 
@@ -74,12 +75,15 @@ public class Main {
                     db.listarFuncionarioPorSetor(Funcionario.funcionarioSetorPrompt(scanner));
                     break;
                 case 5:
+                    db.exibirContagemFuncionarios();
+                    break;
+                case 6:
                     System.out.println("Retornando ao menu principal.");
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-        } while (opcao != 5);
+        } while (opcao != 6);
     }
 
     private static void menuProdutos() {
