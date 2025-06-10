@@ -116,6 +116,7 @@ public class  Funcionario{
                     "almoxarifado, " +
                     "transportadora): ");
             String setor = in.nextLine().trim().toUpperCase();
+            setor = setor.replace(" ", "_");
 
             List setores = Arrays.asList(Setor.values());
 
