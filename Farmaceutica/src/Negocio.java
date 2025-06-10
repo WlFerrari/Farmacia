@@ -77,6 +77,7 @@ public class Negocio {
         System.out.println("Transportadoras cadastradas: \n");
         int j = 0;
         for(Transportadora t : bd.getTransportadoras()){
+            j++;
             System.out.println("Indice "+j+":");
             System.out.println(t.toString());
             System.out.println();
