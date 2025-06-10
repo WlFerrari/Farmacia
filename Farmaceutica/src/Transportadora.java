@@ -6,117 +6,65 @@ public class Transportadora {
     private String nome;
     private List<String> regioes;
 
-    // Construtor vazio
-    public Transportadora() {
-        this.regioes = new ArrayList<>();
-    }
-
-    // Construtor parametrizado
     public Transportadora(String nome, List<String> regioes) {
         this.nome = nome;
         this.regioes = regioes;
     }
 
-    public String getNome() {
-        return nome;
+    // Getters e Setters
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+    public List<String> getRegioes() { return regioes; }
+    public void setRegioes(List<String> regioes) { this.regioes = regioes; }
+
+    @Override
+    public String toString() {
+        return "Transportadora: " + nome + "\nRegiões de cobertura: " + String.join(", ", regioes);
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    // ATUALIZADO: Recebe o Scanner como parâmetro
+    public static Transportadora transportadoraPrompt(Scanner sc) {
+        System.out.print("Digite o nome da transportadora: ");
+        String nome = sc.nextLine();
 
-    public List<String> getRegioes() {
-        return regioes;
-    }
-
-    public void setRegioes(List<String> regioes) {
-        this.regioes = regioes;
-    }
-
-    // Método para cadastrar uma nova transportadora
-    public static Transportadora transportadoraPrompt() {
-        Scanner sc = new Scanner(System.in);
-        Transportadora transportadora = new Transportadora();
-
-        System.out.println("Digite o nome da transportadora: ");
-        transportadora.setNome(sc.nextLine());
-
-        System.out.println("Digite as regiões de cobertura da transportadora (digite 'fim' para encerrar):");
-        String regiao;
-        do {
+        List<String> regioes = new ArrayList<>();
+        System.out.println("Digite as regiões de cobertura (digite 'fim' para encerrar):");
+        while (true) {
             System.out.print("Região: ");
-            regiao = sc.nextLine();
-            if (!regiao.equalsIgnoreCase("fim")) {
-                transportadora.getRegioes().add(regiao);
+            String regiao = sc.nextLine();
+            if (regiao.equalsIgnoreCase("fim")) {
+                break;
             }
-        } while (!regiao.equalsIgnoreCase("fim"));
-
-        return transportadora;
-    }
-
-    // Método para listar todas as transportadoras
-    public static void listarTransportadoras(List<Transportadora> lista) {
-        if (lista.isEmpty()) {
-            System.out.println("Nenhuma transportadora cadastrada.");
-        } else {
-            System.out.println("\n--- Lista de Transportadoras ---");
-            for (int i = 0; i < lista.size(); i++) {
-                System.out.println((i + 1) + " - " + lista.get(i));
-            }
+            regioes.add(regiao);
         }
+        return new Transportadora(nome, regioes);
     }
 
-    // Método para editar uma transportadora pelo índice na lista
-    public static void editarTransportadora(List<Transportadora> lista) {
-        Scanner sc = new Scanner(System.in);
-
+    // ATUALIZADO: Recebe o Scanner como parâmetro
+    public static void editarTransportadora(List<Transportadora> lista, Scanner sc) {
         if (lista.isEmpty()) {
-            System.out.println("Nenhuma transportadora cadastrada.");
+            System.out.println("Nenhuma transportadora cadastrada para editar.");
             return;
         }
 
-        listarTransportadoras(lista);
+        System.out.println("Selecione a transportadora para editar:");
+        for(int i = 0; i < lista.size(); i++) {
+            System.out.printf("%d. %s%n", (i+1), lista.get(i).getNome());
+        }
+        System.out.print("Opção: ");
+        int indice = Integer.parseInt(sc.nextLine()) - 1;
 
-        System.out.print("Digite o número da transportadora que deseja editar: ");
-        int indice = sc.nextInt();
-        sc.nextLine(); // Consumir a quebra de linha
-
-        if (indice < 1 || indice > lista.size()) {
+        if (indice < 0 || indice >= lista.size()) {
             System.out.println("Índice inválido.");
             return;
         }
 
-        Transportadora transportadora = lista.get(indice - 1);
-
-        System.out.println("Editando transportadora: " + transportadora.getNome());
-
-        System.out.print("Novo nome (ou Enter para manter): ");
+        Transportadora transportadora = lista.get(indice);
+        System.out.printf("Novo nome (ou Enter para manter o atual '%s'): ", transportadora.getNome());
         String novoNome = sc.nextLine();
-        if (!novoNome.isEmpty()) {
+        if (!novoNome.isBlank()) {
             transportadora.setNome(novoNome);
         }
-
-        System.out.println("Regiões atuais: " + String.join(", ", transportadora.getRegioes()));
-        System.out.print("Deseja editar as regiões? (s/n): ");
-        String opcao = sc.nextLine();
-        if (opcao.equalsIgnoreCase("s")) {
-            transportadora.getRegioes().clear();
-            System.out.println("Digite as novas regiões de cobertura (digite 'fim' para encerrar):");
-            String regiao;
-            do {
-                System.out.print("Região: ");
-                regiao = sc.nextLine();
-                if (!regiao.equalsIgnoreCase("fim")) {
-                    transportadora.getRegioes().add(regiao);
-                }
-            } while (!regiao.equalsIgnoreCase("fim"));
-        }
-
         System.out.println("Transportadora atualizada com sucesso!");
-    }
-
-    @Override
-    public String toString() {
-        return "Nome da transportadora: " + nome + "\nRegiões de cobertura: " + String.join(", ", regioes);
     }
 }
