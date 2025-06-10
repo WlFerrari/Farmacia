@@ -1,0 +1,9 @@
+Ideias de melhoria:
+
+
+    - Relatório de estimativa de lucro mais completo, mostrando a memória do cálculo
+    - Exportar relatório para csv
+
+    - Adicionar atributo ativo/inativo para funcionarios, para não permitir a exclusão de dados, apenas alterar o estado.
+
+    - Link para um compilado de bibliotecas java para diversas funcionalidades: https://github.com/akullpp/awesome-java#cli
