@@ -1,4 +1,4 @@
-# Sistema de Gestão para Farmácia  фармацевт
+# Sistema de Gestão para Farmácia
 
 ![Linguagem](https://img.shields.io/badge/Linguagem-Java-blue?style=for-the-badge&logo=java)
 ![Status](https://img.shields.io/badge/Status-Concluído-green?style=for-the-badge)
