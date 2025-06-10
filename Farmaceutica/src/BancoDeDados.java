@@ -18,12 +18,29 @@ public class BancoDeDados {
         return instancia;
     }
 
+    // --- Constantes ---
+    private final int LIMITE_GERENCIA = 1;
+    private final int LIMITE_ATENDIMENTO = 4;
+    private final int LIMITE_GESTAO = 4;
+    private final int LIMITE_FINANCEIRO = 3;
+    private final int LIMITE_VENDAS = 5;
+    private final int LIMITE_ALMOXARIFADO = 3;
+
+
     // --- Attributes ---
     private final Caixa caixa;
     private final ArrayList<Funcionario> funcionarios;
     private final ArrayList<Produto> produtos;
     private final ArrayList<Transportadora> transportadoras;
     private final ArrayList<Negocio> negocios;
+    private int counterGerencia;
+    private int counterAtendimento;
+    private int counterGestao;
+    private int counterFinanceiro;
+    private int counterAlmoxarifado;
+    private int counterVendas;
+
+
 
     // --- Constructor (Private to enforce Singleton) ---
     private BancoDeDados() {
@@ -32,6 +49,12 @@ public class BancoDeDados {
         this.transportadoras = new ArrayList<>();
         this.negocios = new ArrayList<>();
         this.caixa = new Caixa(200000); // Valor inicial do caixa
+        counterGerencia = 0;
+        counterAtendimento = 0;
+        counterGestao = 0;
+        counterFinanceiro = 0;
+        counterVendas = 0;
+        counterAlmoxarifado = 0;
 
         popularDadosIniciais();
     }
@@ -46,8 +69,78 @@ public class BancoDeDados {
 
     // --- Add Methods (Create) ---
     public void adicionarFuncionario(Funcionario funcionario) {
-        if (funcionario != null) funcionarios.add(funcionario);
+        try{
+            // checando se ainda ha vaga em lista funcionarios
+            if(checarLimiteFuncionarios(funcionarios, funcionario)) {
+                if (funcionario != null) {
+                    switch (funcionario.getSetor()) {
+                        case Setor.GERENCIA -> this.counterGerencia++;
+                        case Setor.ATENDIMENTO_AO_CLIENTE -> this.counterAtendimento++;
+                        case Setor.GESTAO_DE_PESSOAS -> this.counterGestao++;
+                        case Setor.FINANCEIRO -> this.counterFinanceiro++;
+                        case Setor.VENDAS -> this.counterVendas++;
+                        case Setor.ALMOXARIFADO -> this.counterAlmoxarifado++;
+                        default -> throw new RuntimeException("Setor invalido");
+                    }
+                    funcionarios.add(funcionario);
+                }
+            } else{
+                throw new RuntimeException("Não foi possivel adicionar funcionario - Setor designado cheio!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    // Metodo para checar se o limite de funcionarios está cheio
+    // Retorna falso se a lista de funcionarios estiver cheia, verdadeiro caso ainda haja vaga na lista
+    public boolean checarLimiteFuncionarios(ArrayList<Funcionario> funcionarios, Funcionario func){
+        int innerCounterGerencia = this.counterGerencia;
+        int outerCounterAlmoxarifado = this.counterAlmoxarifado;
+        int innerCounterAtendimento = this.counterAtendimento;
+        int outerCounterFinanceiro = this.counterFinanceiro;
+        int innerCounterVendas = this.counterVendas;
+        int innerCounterGestao = this.counterGestao;
+
+        switch(func.getSetor()){
+            case Setor.GERENCIA -> innerCounterGerencia++;
+            case Setor.ATENDIMENTO_AO_CLIENTE -> innerCounterAtendimento++;
+            case Setor.GESTAO_DE_PESSOAS -> innerCounterGestao++;
+            case Setor.FINANCEIRO -> outerCounterFinanceiro++;
+            case Setor.VENDAS -> innerCounterVendas++;
+            case Setor.ALMOXARIFADO -> outerCounterAlmoxarifado++;
+            default -> throw new RuntimeException("Setor invalido");
+        }
+
+        // Checando se cada Setor está cheio
+        if(innerCounterGerencia > LIMITE_GERENCIA){
+            return false;
+        } else if(innerCounterAtendimento > LIMITE_ATENDIMENTO) {
+            return false;
+        } else if(innerCounterGestao > LIMITE_GESTAO) {
+            return false;
+        } else if(outerCounterFinanceiro > LIMITE_FINANCEIRO) {
+            return false;
+        } else if(innerCounterVendas > LIMITE_VENDAS) {
+            return false;
+        } else if(outerCounterAlmoxarifado > LIMITE_ALMOXARIFADO) {
+            return false;
+        } else{
+            return true;
+        }
+    }
+
+    // Exibe o contador de funcionarios em cada setor
+    public void exibirContagemFuncionarios(){
+        System.out.println();
+        System.out.println("Gerencia: " + counterGerencia
+                + "\nAtendimento: " + counterAtendimento
+                + "\nGestao: " + counterGestao
+                + "\nFinanceiro: " + counterFinanceiro
+                + "\nAlmoxarifado: " + counterAlmoxarifado);
+        System.out.println();
+    }
+
     public void adicionarProduto(Produto produto) {
         if (produto != null) produtos.add(produto);
     }
@@ -231,9 +324,9 @@ public class BancoDeDados {
         Funcionario maria = new Funcionario("Maria", 20, Genero.FEMININO, Setor.FINANCEIRO, 1200.00);
         Funcionario matheus = new Funcionario("Matheus", 20, Genero.NAO_INFORMADO, Setor.GERENCIA, 5000.00);
         // ... (restante dos funcionários)
-        funcionarios.add(joao);
-        funcionarios.add(maria);
-        funcionarios.add(matheus);
+        this.adicionarFuncionario(joao);
+        this.adicionarFuncionario(maria);
+        this.adicionarFuncionario(matheus);
 
         // Transportadoras
         List<String> regioes = new ArrayList<>(List.of("Sul", "Sudeste"));
