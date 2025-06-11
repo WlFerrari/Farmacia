@@ -22,10 +22,15 @@ public class Caixa {
         double valorTotalVenda = 0;
         double valorTotalCompra = 0;
 
-        for (Produto produto : db.getProdutos()) {
-            valorTotalVenda += produto.getValorVenda() * produto.getQuantidadeEstoque();
-            valorTotalCompra += produto.getValorCompra() * produto.getQuantidadeEstoque();
+        for(Negocio n : db.buscarNegociosPorStatus(Status.ABERTO)) {
+            if(n.getTipo().equals(Tipo.VENDA)){
+                for(ItemNegocio item : n.getItemsNegocio()){
+                    valorTotalVenda += item.getProduto().getValorVenda() * item.getQuantidade();
+                    valorTotalCompra += item.getProduto().getValorCompra() * item.getQuantidade();
+                }
+            }
         }
+
         return valorTotalVenda - valorTotalCompra;
     }
 

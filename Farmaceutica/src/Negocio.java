@@ -9,10 +9,8 @@ public class Negocio {
     private final Tipo tipo;
     private Status status;
     private final List<ItemNegocio> itemsNegocio;
-
     private final List<Funcionario> participantes;
     private final Transportadora transportadora;
-    private Status status;
     private boolean isAtivo;
 
     public Negocio(Tipo tipo, Status status, List<ItemNegocio> itemsNegocio, List<Funcionario> participantes, Transportadora transportadora) {
@@ -32,6 +30,44 @@ public class Negocio {
         this.participantes = participantes;
         this.transportadora = transportadora;
     }
+
+    // Getters e Setters
+    public int getId() {
+        return id;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public List<Funcionario> getParticipantes() {
+        return participantes;
+    }
+
+    public Transportadora getTransportadora() {
+        return transportadora;
+    }
+
+    public boolean isAtivo() {
+        return isAtivo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        isAtivo = ativo;
+    }
+
+    public List<ItemNegocio> getItemsNegocio() {
+        return itemsNegocio;
+    }
+
     
   
     @Override
@@ -194,18 +230,17 @@ public class Negocio {
                     itemNegocio.getProduto().setQuantidadeEstoque(itemNegocio.getProduto().getQuantidadeEstoque() + itemNegocio.getQuantidade());
                 }
             }
-
-
-
             System.out.println("Status do negócio atualizado com sucesso para concluido.");
         }else if (status.equals(Status.CANCELADO)) {
             setStatus(Status.CANCELADO);
-            for (ItemNegocio item : itemsNegocio) {
-                item.getProduto().setQuantidadeEstoque(item.getProduto().getQuantidadeEstoque() + item.getQuantidade());
+
+            if(getTipo().equals(Tipo.VENDA)){
+                for (ItemNegocio item : itemsNegocio) {
+                    item.getProduto().setQuantidadeEstoque(item.getProduto().getQuantidadeEstoque() + item.getQuantidade());
+                }
             }
+
             System.out.println("Status do negócio atualizado com sucesso para cancelado.");
-        }else{
-            System.out.println("Status de negócio inválido.");
         }
     }
 
@@ -225,44 +260,5 @@ public class Negocio {
         return valor;
     }
 
-  
-    // Getters e Setters
-    public int getId() {
-        return id;
-    }
-
-    public Tipo getTipo() {
-        return tipo;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public List<Funcionario> getParticipantes() {
-        return participantes;
-    }
-
-    public Transportadora getTransportadora() {
-        return transportadora;
-    }
-
-    public boolean isAtivo() {
-        return isAtivo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        isAtivo = ativo;
-    }
-    
-    public List<ItemNegocio> getItemsNegocio() {
-        return itemsNegocio;
-    }
-
-    }
 
 }

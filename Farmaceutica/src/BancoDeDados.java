@@ -148,8 +148,9 @@ public class BancoDeDados {
         System.out.println();
         System.out.println("Gerencia: " + counterGerencia
                 + "\nAtendimento: " + counterAtendimento
-                + "\nGestao: " + counterGestao
+                + "\nGestao de Pessoas: " + counterGestao
                 + "\nFinanceiro: " + counterFinanceiro
+                + "\nVendas: " + counterVendas
                 + "\nAlmoxarifado: " + counterAlmoxarifado);
         System.out.println();
     }
@@ -244,6 +245,16 @@ public class BancoDeDados {
 
     public Negocio buscarNegocioPorId(int id) {
         return negocios.stream().filter(n -> n.getId() == id).findFirst().orElse(null);
+    }
+
+    public ArrayList<Negocio> buscarNegociosPorStatus(Status status) {
+        ArrayList<Negocio> negociosAbertos = new ArrayList<>();
+        for (Negocio n : negocios) {
+            if (n.getStatus() == status) {
+                negociosAbertos.add(n);
+            }
+        }
+        return negociosAbertos;
     }
 
     public Transportadora buscarTransportadoraPorNome(String nome) {
@@ -363,27 +374,84 @@ public class BancoDeDados {
         // ... (restante dos produtos)
 
         // Funcionários
-        Funcionario joao = new Funcionario("João", 20, Genero.MASCULINO, Setor.ATENDIMENTO_AO_CLIENTE, 1000.00);
-        Funcionario maria = new Funcionario("Maria", 20, Genero.FEMININO, Setor.FINANCEIRO, 1200.00);
-        Funcionario matheus = new Funcionario("Matheus", 20, Genero.NAO_INFORMADO, Setor.GERENCIA, 5000.00);
-        // ... (restante dos funcionários)
+        Funcionario carlos = new Funcionario("Carlos Alberto", 50, Genero.MASCULINO, Setor.GERENCIA, 5000.00);
+
+        Funcionario joao = new Funcionario("João Gouveia", 20, Genero.MASCULINO, Setor.ATENDIMENTO_AO_CLIENTE, 2000.00);
+        Funcionario maria = new Funcionario("Maria Souza", 28, Genero.FEMININO, Setor.ATENDIMENTO_AO_CLIENTE, 2000.00);
+        Funcionario carlosPereira = new Funcionario("Carlos Pereira", 35, Genero.MASCULINO, Setor.ATENDIMENTO_AO_CLIENTE, 2000.00);
+        Funcionario ana = new Funcionario("Ana Lima", 26, Genero.FEMININO, Setor.ATENDIMENTO_AO_CLIENTE, 2000.00);
+
+        Funcionario lucas = new Funcionario("Lucas Almeida", 40, Genero.MASCULINO, Setor.GESTAO_DE_PESSOAS, 3000.00);
+        Funcionario isabela = new Funcionario("Isabela Fernandes", 32, Genero.FEMININO, Setor.GESTAO_DE_PESSOAS, 3000.00);
+        Funcionario rafael = new Funcionario("Rafael Costa", 29, Genero.MASCULINO, Setor.GESTAO_DE_PESSOAS, 3000.00);
+        Funcionario carolina = new Funcionario("Carolina Rocha", 38, Genero.FEMININO, Setor.GESTAO_DE_PESSOAS, 3000.00);
+
+        Funcionario mariaDeLourdes = new Funcionario("Maria de Lourdes", 20, Genero.FEMININO, Setor.FINANCEIRO, 4000.00);
+        Funcionario paulo = new Funcionario("Paulo Martins", 33, Genero.MASCULINO, Setor.FINANCEIRO, 4000.00);
+        Funcionario renata = new Funcionario("Renata Gomes", 29, Genero.FEMININO, Setor.FINANCEIRO, 4000.00);
+
+        Funcionario bruno = new Funcionario("Bruno Silva", 27, Genero.MASCULINO, Setor.VENDAS, 2800.00);
+        Funcionario juliana = new Funcionario("Juliana Costa", 31, Genero.FEMININO, Setor.VENDAS, 2800.00);
+        Funcionario felipe = new Funcionario("Felipe Oliveira", 24, Genero.MASCULINO, Setor.VENDAS, 2800.00);
+        Funcionario carla = new Funcionario("Carla Mendes", 29, Genero.FEMININO, Setor.VENDAS, 2800.00);
+        Funcionario diego = new Funcionario("Diego Ramos", 35, Genero.MASCULINO, Setor.VENDAS, 2800.00);
+
+        Funcionario paula = new Funcionario("Paula Andrade", 34, Genero.FEMININO, Setor.ALMOXARIFADO, 2200.00);
+        Funcionario marcelo = new Funcionario("Marcelo Souza", 41, Genero.MASCULINO, Setor.ALMOXARIFADO, 2200.00);
+        Funcionario fernanda = new Funcionario("Fernanda Lima", 28, Genero.FEMININO, Setor.ALMOXARIFADO, 2000.00);
+
+
+        //Inclusão no banco de dados
+        this.adicionarFuncionario(carlos);
         this.adicionarFuncionario(joao);
         this.adicionarFuncionario(maria);
-        this.adicionarFuncionario(matheus);
+        this.adicionarFuncionario(carlosPereira);
+        this.adicionarFuncionario(ana);
+        this.adicionarFuncionario(lucas);
+        this.adicionarFuncionario(isabela);
+        this.adicionarFuncionario(rafael);
+        this.adicionarFuncionario(carolina);
+        this.adicionarFuncionario(mariaDeLourdes);
+        this.adicionarFuncionario(paulo);
+        this.adicionarFuncionario(renata);
+        this.adicionarFuncionario(bruno);
+        this.adicionarFuncionario(juliana);
+        this.adicionarFuncionario(felipe);
+        this.adicionarFuncionario(carla);
+        this.adicionarFuncionario(diego);
+        this.adicionarFuncionario(paula);
+        this.adicionarFuncionario(marcelo);
+        this.adicionarFuncionario(fernanda);
+
 
         //Items para a criação de um negócio
         ItemNegocio item1 = new ItemNegocio(produtos.get(0), 35);
         ItemNegocio item2 = new ItemNegocio(produtos.get(1), 50);
-        List<ItemNegocio> items = new ArrayList<>(List.of(item1, item2));
+        List<ItemNegocio> itemsCompra = new ArrayList<>(List.of(item1, item2));
+
+        ItemNegocio item3 = new ItemNegocio(produtos.get(1), 80);
+        ItemNegocio item4 = new ItemNegocio(produtos.get(5), 80);
+        List<ItemNegocio> itemsVenda = new ArrayList<>(List.of(item3, item4));
 
         // Transportadoras
-        List<String> regioes = new ArrayList<>(List.of("Sul", "Sudeste"));
-        Transportadora transportadoraX = new Transportadora("Transportadora X", regioes);
+        List<String> regioes1 = new ArrayList<>(List.of("Sul", "Sudeste"));
+        List<String> regioes2 = new ArrayList<>(List.of("Norte", "Centro-Oeste"));
+        List<String> regioes3 = new ArrayList<>(List.of("Nordeste"));
+        Transportadora transportadoraX = new Transportadora("Transportadora 1", regioes1);
         transportadoras.add(transportadoraX);
 
+        Transportadora transportadoraY = new Transportadora("Transportadora 2", regioes2);
+        transportadoras.add(transportadoraY);
+
+        Transportadora transportadoraZ = new Transportadora("Transportadora 3", regioes3);
+        transportadoras.add(transportadoraZ);
+
         // Negócios
-        List<Funcionario> participantes = new ArrayList<>(List.of(joao));
-        Negocio negocioInicial = new Negocio(Tipo.COMPRA, Status.CONCLUIDO, items, participantes, transportadoraX);
-        negocios.add(negocioInicial);
+        List<Funcionario> participantesCompra = new ArrayList<>(List.of(joao));
+        List<Funcionario> participantesVenda = new ArrayList<>(List.of(bruno, juliana));
+        Negocio negocioInicialCompra = new Negocio(Tipo.COMPRA, Status.ABERTO, itemsCompra, participantesCompra, transportadoraX);
+        negocios.add(negocioInicialCompra);
+        Negocio negocioInicialVenda = new Negocio(Tipo.VENDA, Status.ABERTO, itemsVenda, participantesVenda, transportadoraX);
+        negocios.add(negocioInicialVenda);
     }
 }
