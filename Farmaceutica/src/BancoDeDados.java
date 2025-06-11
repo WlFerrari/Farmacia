@@ -77,6 +77,10 @@ public class BancoDeDados {
 
 
     // --- Add Methods (Create) ---
+    public void addValorCaixa(double valor){
+        caixa.adicionarValor(valor);
+    }
+
     public void adicionarFuncionario(Funcionario funcionario) {
         try {
             // checando se ainda ha vaga em lista funcionarios
@@ -184,7 +188,7 @@ public class BancoDeDados {
     public boolean atualizarStatusNegocio(int id, Status status) {
         Negocio negocio = buscarNegocioPorId(id);
         if (negocio != null) {
-            negocio.setStatus(status);
+            negocio.atualizarStatus(id, status);
             return true;
         }
         return false;
@@ -223,6 +227,10 @@ public class BancoDeDados {
 
     public void removerTransportadoraPorNome(String nome) {
         transportadoras.removeIf(t -> t.getNome().equalsIgnoreCase(nome));
+    }
+
+    public void removeValorCaixa(double valor){
+        caixa.removerValor(valor);
     }
 
     // --- Search Methods (Read) ---
@@ -363,6 +371,11 @@ public class BancoDeDados {
         this.adicionarFuncionario(maria);
         this.adicionarFuncionario(matheus);
 
+        //Items para a criação de um negócio
+        ItemNegocio item1 = new ItemNegocio(produtos.get(0), 35);
+        ItemNegocio item2 = new ItemNegocio(produtos.get(1), 50);
+        List<ItemNegocio> items = new ArrayList<>(List.of(item1, item2));
+
         // Transportadoras
         List<String> regioes = new ArrayList<>(List.of("Sul", "Sudeste"));
         Transportadora transportadoraX = new Transportadora("Transportadora X", regioes);
@@ -370,7 +383,7 @@ public class BancoDeDados {
 
         // Negócios
         List<Funcionario> participantes = new ArrayList<>(List.of(joao));
-        Negocio negocioInicial = new Negocio(Tipo.COMPRA, Status.CONCLUIDO, participantes, transportadoraX);
+        Negocio negocioInicial = new Negocio(Tipo.COMPRA, Status.CONCLUIDO, items, participantes, transportadoraX);
         negocios.add(negocioInicial);
     }
 }
