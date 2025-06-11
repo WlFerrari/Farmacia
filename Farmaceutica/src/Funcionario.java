@@ -162,7 +162,7 @@ public class Funcionario {
     public double calcularParticipacaoLucros() {
         BancoDeDados bd = BancoDeDados.getInstanciaBanco();
         if (bd.getFuncionarios().isEmpty()) return 0;
-        return bd.getCaixa().calcularEstimativaLucro() * 0.1 / bd.getFuncionarios().size();
+        return bd.getCaixa().estimativaLucroAnual() * 0.1 / bd.getFuncionarios().size();
     }
 
     @Override
