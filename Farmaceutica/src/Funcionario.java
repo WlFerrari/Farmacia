@@ -1,5 +1,3 @@
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Funcionario {
@@ -10,6 +8,7 @@ public class Funcionario {
     private Genero genero;
     private Setor setor;
     private double salariobase;
+    private boolean isAtivo;
 
     // Benefícios
     private double va = 300;
@@ -25,21 +24,102 @@ public class Funcionario {
         this.genero = genero;
         this.setor = setor;
         this.salariobase = salariobase;
+        isAtivo = true;
         ajustarBeneficiosPorSetor();
     }
 
+    // Métodos Estáticos para Entrada do Usuário (Prompt)
+    public static Funcionario funcionarioPrompt(Scanner in) {
+        try {
+            System.out.print("Digite o nome do funcionário: ");
+            String nome = in.nextLine();
+
+            System.out.print("Digite a idade: ");
+            int idade = Integer.parseInt(in.nextLine());
+
+            System.out.println("Selecione o gênero: 1.MASCULINO, 2.FEMININO, 3.NAO_INFORMADO");
+            int genOpt = Integer.parseInt(in.nextLine());
+            Genero genero = Genero.values()[genOpt - 1];
+
+            System.out.println("Selecione o setor: 1.GERENCIA, 2.ATENDIMENTO_AO_CLIENTE, 3.GESTAO_DE_PESSOAS, 4.FINANCEIRO, 5.VENDAS, 6.ALMOXARIFADO");
+            int setorOpt = Integer.parseInt(in.nextLine());
+            Setor setor = Setor.values()[setorOpt - 1];
+
+            System.out.print("Digite o salário base: ");
+            double salariobase = Double.parseDouble(in.nextLine());
+
+            return new Funcionario(nome, idade, genero, setor, salariobase);
+        } catch (Exception e) {
+            System.out.println("Erro ao criar funcionário. Dados inválidos. " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static Setor funcionarioSetorPrompt(Scanner in) {
+        try {
+            System.out.print("Digite o Setor do funcionário (ex: gerencia, vendas, atendimento ao cliente, " +
+                    "gestao de pessoas, financeiro, almoxarifado): \n");
+            String setorStr = in.nextLine().trim().toUpperCase();
+            setorStr = setorStr.replace(" ", "_");
+            return Setor.valueOf(setorStr);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Setor inválido. Tente novamente.");
+            return null;
+        }
+    }
+
     // Getters e Setters
-    public int getId() { return id; }
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
-    public int getIdade() { return idade; }
-    public void setIdade(int idade) { this.idade = idade; }
-    public Genero getGenero() { return genero; }
-    public void setGenero(Genero genero) { this.genero = genero; }
-    public Setor getSetor() { return setor; }
-    public void setSetor(Setor setor) { this.setor = setor; }
-    public double getSalariobase() { return salariobase; }
-    public void setSalariobase(double salariobase) { this.salariobase = salariobase; }
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    public Setor getSetor() {
+        return setor;
+    }
+
+    public void setSetor(Setor setor) {
+        this.setor = setor;
+    }
+
+    public double getSalariobase() {
+        return salariobase;
+    }
+
+    public void setSalariobase(double salariobase) {
+        this.salariobase = salariobase;
+    }
+
+    public boolean isAtivo() {
+        return isAtivo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        isAtivo = ativo;
+    }
 
     // Métodos de Lógica de Negócio
     private void ajustarBeneficiosPorSetor() {
@@ -95,45 +175,5 @@ public class Funcionario {
                 id, nome, idade, genero, setor, salariobase, getSalarioLiquido(), calcularValorIR(),
                 va, vr, vt, planoSaude, planoOdontologico, calcularParticipacaoLucros()
         );
-    }
-
-    // Métodos Estáticos para Entrada do Usuário (Prompt)
-    public static Funcionario funcionarioPrompt(Scanner in) {
-        try {
-            System.out.print("Digite o nome do funcionário: ");
-            String nome = in.nextLine();
-
-            System.out.print("Digite a idade: ");
-            int idade = Integer.parseInt(in.nextLine());
-
-            System.out.println("Selecione o gênero: 1.MASCULINO, 2.FEMININO, 3.NAO_INFORMADO");
-            int genOpt = Integer.parseInt(in.nextLine());
-            Genero genero = Genero.values()[genOpt - 1];
-
-            System.out.println("Selecione o setor: 1.GERENCIA, 2.ATENDIMENTO_AO_CLIENTE, 3.GESTAO_DE_PESSOAS, 4.FINANCEIRO, 5.VENDAS, 6.ALMOXARIFADO");
-            int setorOpt = Integer.parseInt(in.nextLine());
-            Setor setor = Setor.values()[setorOpt - 1];
-
-            System.out.print("Digite o salário base: ");
-            double salariobase = Double.parseDouble(in.nextLine());
-
-            return new Funcionario(nome, idade, genero, setor, salariobase);
-        } catch (Exception e) {
-            System.out.println("Erro ao criar funcionário. Dados inválidos. " + e.getMessage());
-            return null;
-        }
-    }
-
-    public static Setor funcionarioSetorPrompt(Scanner in) {
-        try {
-            System.out.print("Digite o Setor do funcionário (ex: gerencia, vendas, atendimento ao cliente, " +
-                    "gestao de pessoas, financeiro, almoxarifado): \n");
-            String setorStr = in.nextLine().trim().toUpperCase();
-            setorStr = setorStr.replace(" ", "_");
-            return Setor.valueOf(setorStr);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Setor inválido. Tente novamente.");
-            return null;
-        }
     }
 }

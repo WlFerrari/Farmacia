@@ -9,14 +9,18 @@ public class Negocio {
     private final Tipo tipo;
     private Status status;
     private final List<ItemNegocio> itemsNegocio;
+
     private final List<Funcionario> participantes;
     private final Transportadora transportadora;
+    private Status status;
+    private boolean isAtivo;
 
     public Negocio(Tipo tipo, Status status, List<ItemNegocio> itemsNegocio, List<Funcionario> participantes, Transportadora transportadora) {
         this.id = ++contadorId;
         this.tipo = tipo;
         this.status = status;
         this.itemsNegocio = itemsNegocio;
+        isAtivo = true;
 
         //diminui a quantidade de cada produto em estoque quando a negociação for de venda
         if(tipo.equals(Tipo.VENDA)){
@@ -28,18 +32,8 @@ public class Negocio {
         this.participantes = participantes;
         this.transportadora = transportadora;
     }
-
-    // Getters e Setters
-    public int getId() { return id; }
-    public Tipo getTipo() { return tipo; }
-    public Status getStatus() { return status; }
-    public void setStatus(Status status) { this.status = status; }
-    public List<Funcionario> getParticipantes() { return participantes; }
-    public Transportadora getTransportadora() { return transportadora; }
-    public List<ItemNegocio> getItemsNegocio() {
-        return itemsNegocio;
-    }
-
+    
+  
     @Override
     public String toString() {
         String nomesParticipantes = participantes.stream()
@@ -58,6 +52,7 @@ public class Negocio {
 
     /**
      * Guia o usuário passo a passo para criar um novo objeto Negocio.
+     *
      * @param scanner O objeto Scanner para ler a entrada do usuário.
      * @return um novo objeto Negocio ou null se a criação for cancelada.
      */
@@ -228,6 +223,46 @@ public class Negocio {
             valor += item.getProduto().getValorVenda() * item.getQuantidade();
         }
         return valor;
+    }
+
+  
+    // Getters e Setters
+    public int getId() {
+        return id;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public List<Funcionario> getParticipantes() {
+        return participantes;
+    }
+
+    public Transportadora getTransportadora() {
+        return transportadora;
+    }
+
+    public boolean isAtivo() {
+        return isAtivo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        isAtivo = ativo;
+    }
+    
+    public List<ItemNegocio> getItemsNegocio() {
+        return itemsNegocio;
+    }
+
     }
 
 }
