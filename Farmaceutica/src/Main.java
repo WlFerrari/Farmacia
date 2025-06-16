@@ -232,6 +232,14 @@ public class Main {
         System.out.printf("Valor atual em caixa: R$ %.2f%n", caixa.getValor());
         System.out.printf("Estimativa de lucro mensal (baseado no estoque atual): R$ %.2f%n", lucroMensal);
         System.out.printf("Estimativa de lucro anual (baseado no estoque atual): R$ %.2f%n", lucroAnual);
+
+        double lucroNegocios = 0;
+        for (Negocio negocio : db.getNegocios()) {
+            if (negocio.getStatus() == Status.CONCLUIDO) {
+                lucroNegocios += negocio.verificarLucroNegociacao();
+            }
+        }
+        System.out.printf("Lucro total de negócios concluídos: R$ %.2f%n", lucroNegocios);
     }
 
     // Métodos auxiliares para o menu de produtos
